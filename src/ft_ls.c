@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/29 11:59:22 by sblauens          #+#    #+#             */
-/*   Updated: 2018/04/13 10:28:06 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/04/18 17:10:38 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ int				main(int ac, char **av)
 	t_list		*a_lst;
 	t_list		*tmp_lst;
 
+	a_lst = NULL;
 	if (ac > 1)
-		a_lst = read_dir(*(av + 1));
+		read_dir(*(av + 1), &a_lst);
 	else
-		a_lst = read_dir(".");
+		read_dir(".", &a_lst);
 	while (a_lst)
 	{
 		printf("%s\n", ((t_dir *)(a_lst)->content)->name);
