@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/04/18 17:19:17 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/04/27 15:10:22 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,52 @@ void				error_exit(void)
 
 }
 
-int					read_dir(char *dir_name, t_list **dir_files)
+void				recursive_listing(t_list *dir_files)
 {
-	t_dir				dir_info;
+	t_list				*subdir_files;
+	struct stat			statbuf;
+
+	while (dir_files)
+	{
+		subdir_files = NULL;
+		if (ft_strcmp(((t_file *)(dir_files->content))->filename, ".")
+				&& ft_strcmp(((t_file *)(dir_files->content))->filename, ".."))
+		{
+			if (stat(((t_file *)(dir_files->content))->pathname, &statbuf))
+				error_exit();
+			if (S_ISDIR(statbuf.st_mode))
+				get_dir_content(((t_file *)(dir_files->content))->pathname,
+						&subdir_files);
+		}
+		((t_file *)(dir_files->content))->subfiles = subdir_files;
+		dir_files = dir_files->next;
+	}
+}
+
+int					get_dir_content(char *dir_name, t_list **dir_files)
+{
+	t_file				file;
 	t_list				*node;
 	DIR					*dir_stream;
-	struct dirent		*dir_ent;
+	struct dirent		*dir_entry;
 
 	errno = 0;
-	dir_stream = opendir(dir_name);
-	if (!dir_stream)
+	if (!(dir_stream = opendir(dir_name)))
 		error_exit();
-	while ((dir_ent = readdir(dir_stream)))
+	while ((dir_entry = readdir(dir_stream)))
 	{
-		ft_strcpy(dir_info.name, dir_ent->d_name);
-		if (!(node = ft_lstnew(&dir_info, sizeof(dir_info))))
+		ft_strcpy(file.pathname, dir_name);
+		ft_strcat(file.pathname, "/");
+		ft_strcat(file.pathname, dir_entry->d_name);
+		ft_strcpy(file.filename, dir_entry->d_name);
+		if (!(node = ft_lstnew(&file, sizeof(file))))
 			return (-1);
 		if (!*dir_files)
 			*dir_files = node;
 		else
 			ft_lstadd_bck(dir_files, node);
 	}
+	recursive_listing(*dir_files);
 	if (closedir(dir_stream) == -1)
 		error_exit();
 	return (0);

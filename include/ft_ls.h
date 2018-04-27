@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/04/18 17:17:12 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/04/27 14:45:28 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,21 @@
 
 #include "libft.h"
 #include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #include <dirent.h>
 #include <stdio.h>
 #include <errno.h>
 
-typedef struct			s_dir
+typedef struct			s_file
 {
 	off_t				size;
-	char				name[256];
+	char				filename[256];
+	char				pathname[256];
 	struct timespec		*date;
-}						t_dir;
+	t_list				*subfiles;
+}						t_file;
 
-int						read_dir(char *dir_name, t_list **dir_files);
+int						get_dir_content(char *dir_name, t_list **dir_files);
+void					recursive_listing(t_list *dir_files);
 #endif
