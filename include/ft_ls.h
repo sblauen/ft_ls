@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/04/27 14:45:28 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/04/28 16:00:29 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ typedef struct			s_file
 }						t_file;
 
 int						get_dir_content(char *dir_name, t_list **dir_files);
-void					recursive_listing(t_list *dir_files);
+void					print_dir_content(t_list *dir_files);
+void					del_recursive_list(t_list **dir_files);
 #endif

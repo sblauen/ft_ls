@@ -6,7 +6,7 @@
 #    By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 16:59:41 by sblauens          #+#    #+#              #
-#    Updated: 2018/04/13 21:32:41 by sblauens         ###   ########.fr        #
+#    Updated: 2018/04/28 16:01:33 by sblauens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ INC_DIR = include
 
 LIB_DIR = lib
 
-SRC_FILES = ft_ls.c read_dir.c
+SRC_FILES = ft_ls.c read.c print.c delete.c
 
 LIB_NAMES = libft
 

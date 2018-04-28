@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_dir.c                                         :+:      :+:    :+:   */
+/*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/04/27 15:10:22 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/04/28 16:20:09 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void				error_exit(void)
 
 }
 
-void				recursive_listing(t_list *dir_files)
+void				recursive_list(t_list *dir_files)
 {
 	t_list				*subdir_files;
 	struct stat			statbuf;
@@ -64,7 +64,8 @@ int					get_dir_content(char *dir_name, t_list **dir_files)
 		else
 			ft_lstadd_bck(dir_files, node);
 	}
-	recursive_listing(*dir_files);
+	print_dir_content(*dir_files);
+	recursive_list(*dir_files);
 	if (closedir(dir_stream) == -1)
 		error_exit();
 	return (0);

@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   delete.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/29 11:59:22 by sblauens          #+#    #+#             */
-/*   Updated: 2018/04/28 16:01:02 by sblauens         ###   ########.fr       */
+/*   Created: 2018/04/28 15:34:42 by sblauens          #+#    #+#             */
+/*   Updated: 2018/04/28 16:02:08 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int				main(int ac, char **av)
+static void			del_file_node(void *content, size_t size)
 {
-	t_list		*working_dir_files;
+	(void)size;
+	ft_memdel(&content);
+}
 
-	working_dir_files = NULL;
-	if (ac > 1)
-		get_dir_content(*(av + 1), &working_dir_files);
-	else
-		get_dir_content(".", &working_dir_files);
-	del_recursive_list(&working_dir_files);
-	return (0);
+void			del_recursive_list(t_list **dir_files)
+{
+	t_list		*tmp;
+	t_list		*subdir_files;
+
+	tmp = *dir_files;
+	while (tmp)
+	{
+		if (((t_file *)(tmp->content))->subfiles)
+		{
+			subdir_files = ((t_file *)(tmp->content))->subfiles;
+			del_recursive_list(&subdir_files);
+		}
+		tmp = tmp->next;
+	}
+	ft_lstdel(dir_files, &del_file_node);
 }
