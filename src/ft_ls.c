@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/29 11:59:22 by sblauens          #+#    #+#             */
-/*   Updated: 2018/04/28 16:01:02 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/04/30 01:21:36 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,31 @@
 
 int				main(int ac, char **av)
 {
-	t_list		*working_dir_files;
+	unsigned int	n;
+	unsigned int	count;
+	t_list			*cwd_files;
+	t_options		options;
 
-	working_dir_files = NULL;
+	n = 1;
+	count = ac - 1;
+	cwd_files = NULL;
+	default_options(&options);
 	if (ac > 1)
-		get_dir_content(*(av + 1), &working_dir_files);
+	{
+		while (count)
+		{
+			--count;
+			if (**(av + n) == '-')
+				parse_option_args(*(av + n), &options);
+			else
+				break ;
+			++n;
+		}
+	}
+	if (*(av + n))
+		get_dir_content(*(av + n), &cwd_files);
 	else
-		get_dir_content(".", &working_dir_files);
-	del_recursive_list(&working_dir_files);
+		get_dir_content(".", &cwd_files);
+	del_recursive_list(&cwd_files);
 	return (0);
 }
