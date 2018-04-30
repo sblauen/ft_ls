@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/29 11:59:22 by sblauens          #+#    #+#             */
-/*   Updated: 2018/04/30 01:34:39 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/05/01 00:45:47 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int				main(int ac, char **av)
 		}
 	}
 	if (*(av + n))
-		get_dir_content(*(av + n), &cwd_files, &options);
+		list_dir_content(*(av + n), &cwd_files, &options);
 	else
-		get_dir_content(".", &cwd_files, &options);
+		list_dir_content(".", &cwd_files, &options);
 	del_recursive_list(&cwd_files);
 	return (0);
 }
