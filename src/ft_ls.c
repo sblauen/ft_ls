@@ -6,36 +6,37 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/29 11:59:22 by sblauens          #+#    #+#             */
-/*   Updated: 2018/05/01 02:29:10 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/05/01 16:10:40 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int				main(int ac, char **av)
+t_options			g_options;
+
+int					main(int ac, char **av)
 {
 	unsigned int	n;
 	unsigned int	count;
-	t_options		options;
 
 	n = 1;
 	count = ac - 1;
-	default_options(&options);
+	default_options();
 	if (ac > 1)
 	{
 		while (count)
 		{
 			--count;
 			if (**(av + n) == '-')
-				parse_option_args(*(av + n), &options);
+				parse_option_args(*(av + n));
 			else
 				break ;
 			++n;
 		}
 	}
 	if (*(av + n))
-		list_dir_content(*(av + n), &options);
+		list_dir_content(*(av + n));
 	else
-		list_dir_content(".", &options);
+		list_dir_content(".");
 	return (0);
 }

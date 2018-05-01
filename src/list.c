@@ -6,11 +6,13 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/05/01 03:28:53 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/05/01 16:10:03 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+extern t_options	g_options;
 
 void				error_exit(void)
 {
@@ -19,7 +21,7 @@ void				error_exit(void)
 
 }
 
-void				recursive_list(t_list *dir_files, const t_options *options)
+void				recursive_list(t_list *dir_files)
 {
 	struct stat			statbuf;
 
@@ -31,14 +33,13 @@ void				recursive_list(t_list *dir_files, const t_options *options)
 			if (stat(((t_file *)(dir_files->content))->pathname, &statbuf))
 				error_exit();
 			if (S_ISDIR(statbuf.st_mode))
-				list_dir_content(((t_file *)(dir_files->content))->pathname,
-										options);
+				list_dir_content(((t_file *)(dir_files->content))->pathname);
 		}
 		dir_files = dir_files->next;
 	}
 }
 
-int					list_dir_content(char *dir_name, const t_options *options)
+int					list_dir_content(char *dir_name)
 {
 	DIR					*dir_stream;
 	t_list				*dir_files;
@@ -47,12 +48,12 @@ int					list_dir_content(char *dir_name, const t_options *options)
 	dir_files = NULL;
 	if (!(dir_stream = opendir(dir_name)))
 		error_exit();
-	get_dir_content(dir_name, dir_stream, &dir_files, options);
+	get_dir_content(dir_name, dir_stream, &dir_files);
 	if (closedir(dir_stream) == -1)
 		error_exit();
 	print_dir_content(dir_files);
-	if (options->recursive)
-		recursive_list(dir_files, options);
+	if (g_options.recursive)
+		recursive_list(dir_files);
 	ft_lstdel(&dir_files, &del_file_node);
 	return (0);
 }
