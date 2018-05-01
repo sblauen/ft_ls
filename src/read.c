@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/05/01 01:16:53 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/05/01 03:05:08 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int					get_dir_content(char *dir_name, DIR *dir_stream,
 			ft_strcat(file.pathname, "/");
 			ft_strcat(file.pathname, dir_entry->d_name);
 			ft_strcpy(file.filename, dir_entry->d_name);
-			file.subfiles = NULL;
 			if (!(node = ft_lstnew(&file, sizeof(file))))
 				return (-1);
 			if (!*dir_files)
