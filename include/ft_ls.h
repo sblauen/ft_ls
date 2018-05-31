@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/05/29 20:04:23 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/05/31 14:03:39 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,5 @@ void					del_file_node(void *content, size_t size);
 void					default_options();
 void					parse_option_args(char *arguments);
 int						cmp_filename(void *f1, void *f2);
+int						cmp_dirname(void *d1, void *d2);
 #endif
