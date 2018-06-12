@@ -6,15 +6,15 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/29 19:38:36 by sblauens          #+#    #+#             */
-/*   Updated: 2018/06/12 02:08:36 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/06/12 17:02:28 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-extern t_options	g_options;
+extern t_options				g_options;
 
-void				default_options()
+static inline void				default_options()
 {
 	g_options.dotfiles = none;
 	g_options.format = column;
@@ -24,7 +24,7 @@ void				default_options()
 	g_options.multi_files = 0;
 }
 
-void				parse_option_args(char *arguments)
+static inline void				parse_option_args(char *arguments)
 {
 	while (*arguments)
 	{
@@ -42,4 +42,19 @@ void				parse_option_args(char *arguments)
 			g_options.sort = time;
 		++arguments;
 	}
+}
+
+void							check_options(int ac, char **av, int *n)
+{
+	default_options();
+	while (*(av + *n))
+	{
+		if (**(av + *n) == '-')
+			parse_option_args(*(av + *n) + 1);
+		else
+			break ;
+		++(*n);
+	}
+	if (ac - *n > 1 || g_options.recursive)
+		g_options.multi_files = 1;
 }
