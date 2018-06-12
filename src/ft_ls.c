@@ -6,13 +6,24 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/29 11:59:22 by sblauens          #+#    #+#             */
-/*   Updated: 2018/06/12 02:11:30 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/06/12 04:08:21 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
 t_options			g_options;
+
+void				iter_file_args(t_list *file_args)
+{
+	while (file_args)
+	{
+		list_dir_content((char *)file_args->content);
+		file_args = file_args->next;
+		if (file_args)
+			ft_putstr("\n");
+	}
+}
 
 void				parse_file_args(char **av)
 {
@@ -34,13 +45,8 @@ void				parse_file_args(char **av)
 		++av;
 	}
 	ft_lstsort_merge(&file_args, &cmp_dirname);
-	while (file_args)
-	{
-		list_dir_content((char *)file_args->content);
-		file_args = file_args->next;
-		if (file_args)
-			ft_putstr("\n");
-	}
+	iter_file_args(file_args);
+	ft_lstdel(&file_args, &del_file_node);
 }
 
 int					main(int ac, char **av)
