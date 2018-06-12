@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/29 19:38:36 by sblauens          #+#    #+#             */
-/*   Updated: 2018/05/01 16:09:33 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/06/12 02:08:36 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void				default_options()
 	g_options.recursive = 0;
 	g_options.reverse = 0;
 	g_options.sort = name;
+	g_options.multi_files = 0;
 }
 
 void				parse_option_args(char *arguments)

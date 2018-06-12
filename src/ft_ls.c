@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/29 11:59:22 by sblauens          #+#    #+#             */
-/*   Updated: 2018/06/01 00:37:04 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/06/12 02:11:30 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void				parse_file_args(char **av)
 	{
 		list_dir_content((char *)file_args->content);
 		file_args = file_args->next;
+		if (file_args)
+			ft_putstr("\n");
 	}
 }
 
@@ -58,6 +60,8 @@ int					main(int ac, char **av)
 			++n;
 		}
 	}
+	if (ac - n > 1 || g_options.recursive)
+		g_options.multi_files = 1;
 	if (*(av + n))
 		parse_file_args(av + n);
 	else
