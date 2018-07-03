@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/29 19:38:36 by sblauens          #+#    #+#             */
-/*   Updated: 2018/06/12 17:02:28 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/03 05:14:48 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static inline void				parse_option_args(char *arguments)
 		if (*arguments == 'r')
 			g_options.reverse = 1;
 		if (*arguments == 't')
-			g_options.sort = time;
+			g_options.sort = mtime;
 		++arguments;
 	}
 }

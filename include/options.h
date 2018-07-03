@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/29 20:12:45 by sblauens          #+#    #+#             */
-/*   Updated: 2018/06/12 02:10:12 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/06/15 01:47:15 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef enum			e_sort_options
 {
 	unsorted,
 	name,
-	time
+	mtime
 }						t_sort_options;
 
 typedef struct			s_options

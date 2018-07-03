@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/06/12 16:55:51 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/03 09:12:37 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,14 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <stdio.h>
+#include <time.h>
 #include <errno.h>
+
+typedef	struct			s_timespec
+{
+	time_t				tv_sec;
+	long				tv_nsec;
+}						t_timespec;
 
 typedef struct			s_file
 {
@@ -28,7 +35,7 @@ typedef struct			s_file
 	char				filename[256];
 	char				parentname[256];
 	char				pathname[256];
-	struct timespec		*date;
+	t_timespec			mtime;
 }						t_file;
 
 int						list_dir_content(char *dir_name);
@@ -40,4 +47,5 @@ void					check_options(int ac, char **av, int *n);
 void					check_files(char **av);
 int						cmp_filename(void *f1, void *f2);
 int						cmp_dirname(void *d1, void *d2);
+void					error_exit(void);
 #endif
