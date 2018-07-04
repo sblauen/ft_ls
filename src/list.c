@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/04 03:37:37 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/04 04:10:26 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void				error_exit(void)
 {
 	perror("ft_ls: ");
 	exit(EXIT_FAILURE);
-
 }
 
 void				recursive_list(t_list *dir_files)

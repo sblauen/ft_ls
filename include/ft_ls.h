@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/04 03:49:26 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/04 04:26:34 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #include <time.h>
 #include <errno.h>
 
-typedef	struct			s_timespec
+typedef struct			s_timespec
 {
 	time_t				tv_sec;
 	long				tv_nsec;
