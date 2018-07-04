@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/04 04:38:51 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/04 06:00:47 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void				error_exit(void)
 	exit(EXIT_FAILURE);
 }
 
-void				recursive_list(t_list *dir_files)
+static void			recursive_list(t_list *dir_files)
 {
 	struct stat			statbuf;
 
