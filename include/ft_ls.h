@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/04 04:38:02 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/04 06:11:02 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,5 @@ void					del_file_node(void *content, size_t size);
 void					check_options(int ac, char **av, int *n);
 void					check_files(char **av);
 int						cmp_files(void *f1, void *f2);
-void					error_exit(void);
+void					error_exit(void) __attribute__((noreturn));
 #endif
