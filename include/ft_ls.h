@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/04 04:26:34 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/04 04:38:02 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 #include <stdio.h>
 #include <time.h>
 #include <errno.h>
+
+extern t_options		g_options;
 
 typedef struct			s_timespec
 {

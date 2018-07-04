@@ -6,13 +6,11 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/04 04:10:26 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/04 04:38:51 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
-extern t_options	g_options;
 
 void				error_exit(void)
 {

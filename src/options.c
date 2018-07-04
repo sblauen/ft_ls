@@ -6,13 +6,13 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/29 19:38:36 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/04 04:09:35 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/04 05:40:25 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-extern t_options				g_options;
+t_options						g_options;
 
 static inline void				default_options(void)
 {

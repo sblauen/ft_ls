@@ -6,13 +6,11 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 13:53:52 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/04 03:49:56 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/04 04:39:03 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
-extern t_options				g_options;
 
 static int						cmp_files_time(t_timespec *t1, t_timespec *t2)
 {
