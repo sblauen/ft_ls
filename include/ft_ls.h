@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/03 09:12:37 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/04 03:49:26 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void					print_dir(t_list *dir_files);
 void					del_file_node(void *content, size_t size);
 void					check_options(int ac, char **av, int *n);
 void					check_files(char **av);
-int						cmp_filename(void *f1, void *f2);
-int						cmp_dirname(void *d1, void *d2);
+int						cmp_files(void *f1, void *f2);
 void					error_exit(void);
 #endif

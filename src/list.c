@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/06/12 02:18:36 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/04 03:37:37 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int					list_dir_content(char *dir_name)
 	get_dir_content(dir_name, dir_stream, &dir_files);
 	if (closedir(dir_stream) == -1)
 		error_exit();
-	ft_lstsort_merge(&dir_files, &cmp_filename);
+	ft_lstsort_merge(&dir_files, &cmp_files);
 	print_dir(dir_files);
 	if (g_options.recursive)
 		recursive_list(dir_files);

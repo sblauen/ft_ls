@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:51:34 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/04 02:05:54 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/04 03:39:31 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void							check_files(char **av)
 	if (*av)
 	{
 		files = parse_file_args(av);
-		ft_lstsort_merge(&files, &cmp_filename);
+		ft_lstsort_merge(&files, &cmp_files);
 		iter_file_args(files);
 		ft_lstdel(&files, &del_file_node);
 	}
