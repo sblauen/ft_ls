@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/29 11:59:22 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/12 21:49:58 by sblauens         ###   ########.fr       */
+/*   Created: 2018/07/12 22:23:14 by sblauens          #+#    #+#             */
+/*   Updated: 2018/07/13 03:38:02 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int					main(int ac, char **av)
+void				error_put(char *filename)
 {
-	int			n;
-
-	errno = 0;
-	n = 1;
-	check_options(ac, av, &n);
-	check_files(av + n);
-	return (0);
+	ft_putstr_fd("ft_ls: ", 2);
+	perror(filename);
 }

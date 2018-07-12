@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:51:34 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/12 18:22:08 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/13 02:01:00 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,21 @@ static inline t_list			*parse_file_args(char **av)
 	file_args = NULL;
 	while (*av)
 	{
-		ft_strcpy(arg.filename, *av);
-		if (stat(arg.filename, &statbuf))
-			error_exit();
-		arg.mtime.tv_sec = statbuf.st_mtim.tv_sec;
-		arg.mtime.tv_nsec = statbuf.st_mtim.tv_nsec;
-		arg.st_mode = statbuf.st_mode;
-		if (!(node = ft_lstnew(&arg, sizeof(arg))))
-			return (NULL);
-		if (!file_args)
-			file_args = node;
+		if (stat(*av, &statbuf))
+			error_put(*av);
 		else
-			ft_lstadd_bck(&file_args, node);
+		{
+			ft_strcpy(arg.filename, *av);
+			arg.mtime.tv_sec = statbuf.st_mtim.tv_sec;
+			arg.mtime.tv_nsec = statbuf.st_mtim.tv_nsec;
+			arg.st_mode = statbuf.st_mode;
+			if (!(node = ft_lstnew(&arg, sizeof(arg))))
+				return (NULL);
+			if (!file_args)
+				file_args = node;
+			else
+				ft_lstadd_bck(&file_args, node);
+		}
 		++av;
 	}
 	return (file_args);
