@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:51:34 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/04 03:39:31 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/12 18:22:08 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,24 @@
 
 static inline void				iter_file_args(t_list *file_args)
 {
-	while (file_args)
+	t_list			*tmp;
+
+	tmp = file_args;
+	while (tmp)
 	{
-		list_dir_content(((t_file *)(file_args->content))->filename);
-		file_args = file_args->next;
-		if (file_args)
+		if (!S_ISDIR(((t_file *)(tmp->content))->st_mode))
+			ft_putendl(((t_file *)(tmp->content))->filename);
+		tmp = tmp->next;
+	}
+	tmp = file_args;
+	while (tmp)
+	{
+		if (S_ISDIR(((t_file *)(tmp->content))->st_mode))
+		{
 			ft_putstr("\n");
+			list_dir_content(((t_file *)(tmp->content))->filename);
+		}
+		tmp = tmp->next;
 	}
 }
 
@@ -38,6 +50,7 @@ static inline t_list			*parse_file_args(char **av)
 			error_exit();
 		arg.mtime.tv_sec = statbuf.st_mtim.tv_sec;
 		arg.mtime.tv_nsec = statbuf.st_mtim.tv_nsec;
+		arg.st_mode = statbuf.st_mode;
 		if (!(node = ft_lstnew(&arg, sizeof(arg))))
 			return (NULL);
 		if (!file_args)
@@ -51,15 +64,18 @@ static inline t_list			*parse_file_args(char **av)
 
 void							check_files(char **av)
 {
-	t_list		*files;
+	t_list		*args;
 
-	files = NULL;
+	args = NULL;
 	if (*av)
 	{
-		files = parse_file_args(av);
-		ft_lstsort_merge(&files, &cmp_files);
-		iter_file_args(files);
-		ft_lstdel(&files, &del_file_node);
+		args = parse_file_args(av);
+		if (args)
+		{
+			ft_lstsort_merge(&args, &cmp_files);
+			iter_file_args(args);
+			ft_lstdel(&args, &del_file_node);
+		}
 	}
 	else
 		list_dir_content(".");

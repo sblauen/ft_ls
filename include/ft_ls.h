@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/06 03:15:08 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/12 15:53:11 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ typedef struct			s_timespec
 
 typedef struct			s_file
 {
+	t_timespec			mtime;
 	off_t				size;
 	char				filename[256];
 	char				parentname[256];
-	char				pathname[256];
-	t_timespec			mtime;
+	char				pathname[260];
+	mode_t				st_mode;
 }						t_file;
 
 int						list_dir_content(char *dir_name);
