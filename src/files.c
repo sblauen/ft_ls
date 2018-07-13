@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:51:34 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/13 02:01:00 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/14 01:24:03 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static inline void				iter_file_args(t_list *file_args)
 		if (S_ISDIR(((t_file *)(tmp->content))->st_mode))
 		{
 			ft_putstr("\n");
-			list_dir_content(((t_file *)(tmp->content))->filename);
+			list_content(((t_file *)(tmp->content))->filename);
 		}
 		tmp = tmp->next;
 	}
@@ -81,5 +81,5 @@ void							check_files(char **av)
 		}
 	}
 	else
-		list_dir_content(".");
+		list_content(".");
 }
