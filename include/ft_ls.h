@@ -36,14 +36,12 @@ typedef struct			s_file
 	t_timespec			mtime;
 	off_t				size;
 	char				filename[256];
-	char				parentname[256];
 	char				pathname[260];
 	mode_t				st_mode;
 }						t_file;
 
 void					list_content(char *dir_name);
-int						get_dir_content(char *dir_name, DIR *dir_stream,
-											t_list **dir_files);
+t_list					*get_content(char *dir_name, DIR *dir_stream);
 void					print_dir(char *dir_name, t_list *dir_files);
 void					del_file_node(void *content, size_t size);
 void					check_options(int ac, char **av, int *n);

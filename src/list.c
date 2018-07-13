@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/14 01:25:02 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/14 01:59:03 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 /*
 **  List recursively a directory's 'content' if specified as option.
 */
-static inline void			recursive_list(t_list *content)
+static inline void		recursive_list(t_list *content)
 {
-	t_file		*file;
+	t_file				*file;
 
 	while (content)
 	{
@@ -39,7 +39,7 @@ static inline void			recursive_list(t_list *content)
 **
 **  if an error occurs, a message using errno is written to standard error.
 */
-void						list_content(char *dir_name)
+void					list_content(char *dir_name)
 {
 	DIR					*dir_stream;
 	t_list				*dir_content;
@@ -49,7 +49,7 @@ void						list_content(char *dir_name)
 		error_put(dir_name);
 	else
 	{
-		get_dir_content(dir_name, dir_stream, &dir_content);
+		dir_content = get_content(dir_name, dir_stream);
 		if (closedir(dir_stream) == -1)
 			error_put(dir_name);
 		if (dir_content)
