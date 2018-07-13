@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/13 01:51:32 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/13 04:43:01 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,12 @@
 
 static void			recursive_list(t_list *dir_files)
 {
-	struct stat			statbuf;
-
 	while (dir_files)
 	{
 		if (ft_strcmp(((t_file *)(dir_files->content))->filename, ".")
 				&& ft_strcmp(((t_file *)(dir_files->content))->filename, ".."))
 		{
-			if (lstat(((t_file *)(dir_files->content))->pathname, &statbuf))
-				error_put(((t_file *)(dir_files->content))->filename);
-			if (S_ISDIR(statbuf.st_mode))
+			if (S_ISDIR(((t_file *)(dir_files->content))->st_mode))
 			{
 				ft_putstr("\n");
 				list_dir_content(((t_file *)(dir_files->content))->pathname);

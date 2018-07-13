@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/13 03:46:57 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/13 04:19:48 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@ int					get_dir_content(char *dir_name, DIR *dir_stream,
 			ft_strcpy(file.pathname, dir_name);
 			ft_strcat(file.pathname, "/");
 			ft_strcat(file.pathname, dir_entry->d_name);
-			ft_strcpy(file.filename, dir_entry->d_name);
-			ft_strcpy(file.parentname, dir_name);
 			if (lstat(file.pathname, &statbuf))
 				error_put(dir_entry->d_name);
 			else
 			{
+				ft_strcpy(file.filename, dir_entry->d_name);
+				ft_strcpy(file.parentname, dir_name);
+				file.st_mode = statbuf.st_mode;
 				file.mtime.tv_sec = statbuf.st_mtim.tv_sec;
 				file.mtime.tv_nsec = statbuf.st_mtim.tv_nsec;
 				if (!(node = ft_lstnew(&file, sizeof(file))))
