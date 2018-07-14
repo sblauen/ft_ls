@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:51:34 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/14 01:24:03 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/14 03:49:30 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ static inline void				iter_file_args(t_list *file_args)
 	while (tmp)
 	{
 		if (S_ISDIR(((t_file *)(tmp->content))->st_mode))
-		{
-			ft_putstr("\n");
 			list_content(((t_file *)(tmp->content))->filename);
-		}
 		tmp = tmp->next;
 	}
 }
