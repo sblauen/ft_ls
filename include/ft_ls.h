@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/14 01:23:13 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/19 18:15:10 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct			s_file
 }						t_file;
 
 void					list_content(char *dir_name);
-t_list					*get_content(char *dir_name, DIR *dir_stream);
+int						get_content(char *dir_name, t_list **content);
 void					print_dir(char *dir_name, t_list *dir_files);
 void					del_file_node(void *content, size_t size);
 void					check_options(int ac, char **av, int *n);

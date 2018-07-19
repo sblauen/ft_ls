@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/14 04:36:04 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/20 01:34:46 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ static inline void		recursive_list(t_list *content)
 	{
 		file = (t_file *)(content->content);
 		if (ft_strcmp(file->filename, ".") && ft_strcmp(file->filename, ".."))
-		{
 			if (S_ISDIR(file->st_mode))
 				list_content(file->pathname);
-		}
 		content = content->next;
 	}
 }
@@ -38,26 +36,19 @@ static inline void		recursive_list(t_list *content)
 */
 void					list_content(char *dir_name)
 {
-	DIR					*dir_stream;
 	t_list				*dir_content;
 	static int			n = -1;
 
-	dir_content = NULL;
-	if (!(dir_stream = opendir(dir_name)))
-		error_put(dir_name);
-	else
+	if (!(get_content(dir_name, &dir_content)))
 	{
-		dir_content = get_content(dir_name, dir_stream);
-		if (closedir(dir_stream) == -1)
-			error_put(dir_name);
-		ft_lstsort_merge(&dir_content, &cmp_files);
 		if (!n)
 			ft_putchar('\n');
-		n = 0;
+		ft_lstsort_merge(&dir_content, &cmp_files);
 		print_dir(dir_name, dir_content);
-		if (g_options.recursive)
-			recursive_list(dir_content);
-		if (dir_content)
-			ft_lstdel(&dir_content, &del_file_node);
 	}
+	n = 0;
+	if (g_options.recursive)
+		recursive_list(dir_content);
+	if (dir_content)
+		ft_lstdel(&dir_content, &del_file_node);
 }

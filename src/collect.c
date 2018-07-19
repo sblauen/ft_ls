@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/14 02:38:44 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/19 18:15:03 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,32 +53,50 @@ static inline int		cpy_stat(char *parent, char *file, t_file *file_st)
 }
 
 /*
-**  Retrieve the content of the directory 'dir_name' using the directory
-**  entries in the directory stream pointed to by 'dir_stream'.
+**  Make a new node containing the data of 'file_st' and add it to
+**  the list pointed to by '*content'.
 */
-t_list					*get_content(char *dir_name, DIR *dir_stream)
+static inline void		add_new_node(t_list **content, t_file *file_st)
+{
+	t_list				*node;
+
+	if (!(node = ft_lstnew(file_st, sizeof(*file_st))))
+		return ;
+	if (!*content)
+		*content = node;
+	else
+		ft_lstadd_bck(content, node);
+}
+
+/*
+**  Retrieve the content of the directory 'dir_name' using the directory
+**  entries in the directory stream.
+*/
+int						get_content(char *dir_name, t_list **content)
 {
 	t_file				file_st;
-	t_list				*node;
-	t_list				*content;
 	struct dirent		*dir_entry;
+	DIR					*dir_stream;
 
-	content = NULL;
-	while ((dir_entry = readdir(dir_stream)))
+	*content = NULL;
+	if (!(dir_stream = opendir(dir_name)))
 	{
-		if (((g_options.dotfiles == none) && (*(dir_entry->d_name) != '.'))
-				|| (g_options.dotfiles == all))
+		error_put(dir_name);
+		return (-1);
+	}
+	else
+	{
+		while ((dir_entry = readdir(dir_stream)))
 		{
-			if (!cpy_stat(dir_name, dir_entry->d_name, &file_st))
+			if (((g_options.dotfiles == none) && (*(dir_entry->d_name) != '.'))
+					|| (g_options.dotfiles == all))
 			{
-				if (!(node = ft_lstnew(&file_st, sizeof(file_st))))
-					return (NULL);
-				if (!content)
-					content = node;
-				else
-					ft_lstadd_bck(&content, node);
+				if (!cpy_stat(dir_name, dir_entry->d_name, &file_st))
+					add_new_node(content, &file_st);
 			}
 		}
+		if (closedir(dir_stream) == -1)
+			error_put(dir_name);
 	}
-	return (content);
+	return (0);
 }
