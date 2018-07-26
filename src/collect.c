@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/19 18:15:03 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/26 20:45:11 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,23 @@
 /*
 **  Copy the pathname of the file 'file' in the string pointed to by 'path'.
 */
-static inline void		cpy_path(char *parent, char *file, char *path)
+static inline char		*cpy_path(char *parent, char *file)
 {
-	register size_t		len;
+	char				*path;
+	register size_t		len_path;
+	register size_t		len_file;
 
-	len = ft_strlen(parent) - 1;
+	len_path = ft_strlen(parent);
+	len_file = ft_strlen(file);
+	if (*(parent + len_path - 1) != '/')
+		++len_file;
+	if (!(path = (char *)malloc(sizeof(char) * (len_path + len_file) + 1)))
+		return (NULL);
 	ft_strcpy(path, parent);
-	if (*(parent + len) != '/')
+	if (*(parent + len_path - 1) != '/')
 		ft_strcat(path, "/");
 	ft_strcat(path, file);
+	return (path);
 }
 
 /*
@@ -36,7 +44,7 @@ static inline int		cpy_stat(char *parent, char *file, t_file *file_st)
 {
 	struct stat			statbuf;
 
-	cpy_path(parent, file, file_st->pathname);
+	file_st->pathname = cpy_path(parent, file);
 	if (lstat(file_st->pathname, &statbuf))
 	{
 		error_put(file_st->pathname);

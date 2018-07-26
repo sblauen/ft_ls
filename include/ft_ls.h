@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/19 18:15:10 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/26 21:14:24 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct			s_file
 	t_timespec			mtime;
 	off_t				size;
 	char				filename[256];
-	char				pathname[260];
+	char				*pathname;
 	mode_t				st_mode;
 }						t_file;
 
