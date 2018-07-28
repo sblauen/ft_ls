@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/26 20:45:11 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/28 20:33:28 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ static inline int		cpy_stat(char *parent, char *file, t_file *file_st)
 		file_st->st_mode = statbuf.st_mode;
 		file_st->mtime.tv_sec = statbuf.st_mtim.tv_sec;
 		file_st->mtime.tv_nsec = statbuf.st_mtim.tv_nsec;
+		file_st->st_nlink = statbuf.st_nlink;
+		file_st->st_uid = statbuf.st_uid;
+		file_st->st_gid = statbuf.st_gid;
 		return (0);
 	}
 }
