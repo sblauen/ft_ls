@@ -6,7 +6,7 @@
 #    By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 16:59:41 by sblauens          #+#    #+#              #
-#    Updated: 2018/07/14 02:06:52 by sblauens         ###   ########.fr        #
+#    Updated: 2018/07/28 17:54:50 by sblauens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ INC_DIR = include
 LIB_DIR = lib
 
 SRC_FILES = ft_ls.c files.c list.c collect.c print.c \
-			options.c cmp.c delete.c errors.c
+			options.c cmp.c delete.c errors.c longlist_modes.c
 
 LIB_NAMES = libft
 
