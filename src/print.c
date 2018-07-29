@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:58:21 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/29 17:57:40 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/29 19:42:42 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,21 @@ static inline void		longlist_link_uid_gid(t_file *file, size_t spaces_nlink)
 {
 	struct passwd		*pw;
 	struct group		*gr;
+	char				*buf;
 
 	pw = getpwuid(file->st_uid);
 	gr = getgrgid(file->st_gid);
 	ft_putnbr_ralign(file->st_nlink, spaces_nlink);
-	ft_putchar(' ');
-	ft_putstr(pw->pw_name);
-	ft_putstr("  ");
-	ft_putstr(gr->gr_name);
-	ft_putchar(' ');
+	if (!(buf = (char *)malloc(sizeof(char)
+			* (ft_strlen(pw->pw_name) + ft_strlen(gr->gr_name)) + 6)))
+		return ;
+	*buf = ' ';
+	ft_strcpy(buf + 1, pw->pw_name);
+	ft_strcat(buf, "  ");
+	ft_strcat(buf, gr->gr_name);
+	ft_strcat(buf, "  ");
+	ft_putstr(buf);
+	free(buf);
 }
 
 static inline void		print_longlist(t_file *file, size_t spaces_nlink)
