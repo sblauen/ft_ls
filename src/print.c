@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:58:21 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/29 21:40:24 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/30 01:09:16 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,17 @@ static inline void		longlist_uid_gid(t_file *file)
 
 static inline void		print_longlist(t_file *file, t_spaces *spaces)
 {
-	char				buf[13];
+	char				buf_mode[13];
+	char				buf_time[23];
 
-	longlist_modes(file, buf);
-	ft_putstr(buf);
+	longlist_modes(file, buf_mode);
+	ft_putstr(buf_mode);
 	ft_putnbr_ralign(file->st_nlink, spaces->nlink);
 	longlist_uid_gid(file);
 	ft_putnbr_ralign(file->st_size, spaces->size);
-	ft_putchar(' ');
+	strcpy(buf_time, ctime(&(file->mtime.tv_sec)) + 3);
+	strcpy(buf_time + 13, " ");
+	ft_putstr(buf_time);
 }
 
 void					print_dir(char *dir_name, t_list *dir_files)
