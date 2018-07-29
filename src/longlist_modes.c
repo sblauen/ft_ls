@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/28 17:50:55 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/28 20:03:49 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/29 23:28:27 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,5 @@ void					longlist_modes(t_file *file, char *buf)
 	longlist_usrperm(file, buf);
 	longlist_grpperm(file, buf);
 	longlist_othperm(file, buf);
+	ft_strcpy(buf + 10, "  ");
 }
