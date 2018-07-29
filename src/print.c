@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:58:21 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/29 19:42:42 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/29 20:28:32 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static inline size_t	get_spaces(t_list *files)
 	return (spaces_nlink);
 }
 
-static inline void		longlist_link_uid_gid(t_file *file, size_t spaces_nlink)
+static inline void		longlist_uid_gid(t_file *file)
 {
 	struct passwd		*pw;
 	struct group		*gr;
@@ -39,7 +39,6 @@ static inline void		longlist_link_uid_gid(t_file *file, size_t spaces_nlink)
 
 	pw = getpwuid(file->st_uid);
 	gr = getgrgid(file->st_gid);
-	ft_putnbr_ralign(file->st_nlink, spaces_nlink);
 	if (!(buf = (char *)malloc(sizeof(char)
 			* (ft_strlen(pw->pw_name) + ft_strlen(gr->gr_name)) + 6)))
 		return ;
@@ -61,7 +60,8 @@ static inline void		print_longlist(t_file *file, size_t spaces_nlink)
 	buf[11] = ' ';
 	buf[12] = 0;
 	ft_putstr(buf);
-	longlist_link_uid_gid(file, spaces_nlink);
+	ft_putnbr_ralign(file->st_nlink, spaces_nlink);
+	longlist_uid_gid(file);
 }
 
 void					print_dir(char *dir_name, t_list *dir_files)
