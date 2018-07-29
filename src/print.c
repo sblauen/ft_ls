@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:58:21 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/29 21:21:21 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/29 21:40:24 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,6 @@ static inline void		print_longlist(t_file *file, t_spaces *spaces)
 	char				buf[13];
 
 	longlist_modes(file, buf);
-	buf[10] = ' ';
-	buf[11] = ' ';
-	buf[12] = 0;
 	ft_putstr(buf);
 	ft_putnbr_ralign(file->st_nlink, spaces->nlink);
 	longlist_uid_gid(file);
