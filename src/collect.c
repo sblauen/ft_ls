@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/30 06:26:58 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/30 06:32:52 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 /*
 **  Copy the pathname of the file 'file' in the string pointed to by 'path'.
 */
+
 static inline char		*cpy_path(char *parent, char *file)
 {
 	char				*path;
@@ -36,6 +37,10 @@ static inline char		*cpy_path(char *parent, char *file)
 	ft_strcat(path, file);
 	return (path);
 }
+
+/*
+**  Backup informations needed in long listing output.
+*/
 
 static inline void		longlist_stat(t_file *file_st, struct stat *statbuf)
 {
@@ -62,6 +67,7 @@ static inline void		longlist_stat(t_file *file_st, struct stat *statbuf)
 **
 **  If an error occurs, a message using errno is written to standard error.
 */
+
 static inline int		cpy_stat(char *parent, char *file, t_file *file_st)
 {
 	struct stat			statbuf;
@@ -86,6 +92,7 @@ static inline int		cpy_stat(char *parent, char *file, t_file *file_st)
 **  Make a new node containing the data of 'file_st' and add it to
 **  the list pointed to by '*content'.
 */
+
 static inline void		add_new_node(t_list **content, t_file *file_st)
 {
 	t_list				*node;
@@ -102,6 +109,7 @@ static inline void		add_new_node(t_list **content, t_file *file_st)
 **  Retrieve the content of the directory 'dir_name' using the directory
 **  entries in the directory stream.
 */
+
 int						get_content(char *dir_name, t_list **content)
 {
 	t_file				file_st;
