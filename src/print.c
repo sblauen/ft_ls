@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:58:21 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/30 01:09:16 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/30 02:44:08 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,27 @@
 #include <uuid/uuid.h>
 #include "ft_ls.h"
 
-static inline t_spaces	get_spaces(t_list *files)
+static inline t_sizes	get_sizes(t_list *files)
 {
 	size_t				ret_nlink;
 	size_t				ret_size;
-	t_spaces			spaces;
+	t_sizes				sizes;
 
-	spaces.nlink = 0;
-	spaces.size = 0;
+	sizes.nlink = 0;
+	sizes.size = 0;
+	sizes.blocks = 0;
 	while (files)
 	{
+		sizes.blocks += ((t_file *)(files->content))->st_blocks;
 		ret_nlink = ft_nbrpwr(((t_file *)(files->content))->st_nlink);
-		if (ret_nlink > spaces.nlink)
-			spaces.nlink = ret_nlink;
+		if (ret_nlink > sizes.nlink)
+			sizes.nlink = ret_nlink;
 		ret_size = ft_nbrpwr(((t_file *)(files->content))->st_size);
-		if (ret_size > spaces.size)
-			spaces.size = ret_size;
+		if (ret_size > sizes.size)
+			sizes.size = ret_size;
 		files = files->next;
 	}
-	return (spaces);
+	return (sizes);
 }
 
 static inline void		longlist_uid_gid(t_file *file)
@@ -56,7 +58,7 @@ static inline void		longlist_uid_gid(t_file *file)
 	free(buf);
 }
 
-static inline void		print_longlist(t_file *file, t_spaces *spaces)
+static inline void		print_longlist(t_file *file, t_sizes *spaces)
 {
 	char				buf_mode[13];
 	char				buf_time[23];
@@ -74,7 +76,7 @@ static inline void		print_longlist(t_file *file, t_spaces *spaces)
 void					print_dir(char *dir_name, t_list *dir_files)
 {
 	t_list				*tmp;
-	t_spaces			spaces;
+	t_sizes				sizes;
 
 	tmp = dir_files;
 	if (g_options.multi_files)
@@ -82,11 +84,17 @@ void					print_dir(char *dir_name, t_list *dir_files)
 		ft_putstr(dir_name);
 		ft_putstr(":\n");
 	}
-	spaces = get_spaces(tmp);
+	if (g_options.format == long_listing)
+	{
+		sizes = get_sizes(tmp);
+		ft_putstr("total ");
+		ft_putnbr(sizes.blocks);
+		ft_putchar('\n');
+	}
 	while (tmp)
 	{
 		if (g_options.format == long_listing)
-			print_longlist(((t_file *)(tmp->content)), &spaces);
+			print_longlist(((t_file *)(tmp->content)), &sizes);
 		ft_putendl(((t_file *)(tmp->content))->filename);
 		tmp = tmp->next;
 	}
