@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/30 02:51:03 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/30 06:06:00 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ typedef struct			s_file
 	quad_t				st_blocks;
 	mode_t				st_mode;
 	nlink_t				st_nlink;
-	uid_t				st_uid;
-	gid_t				st_gid;
+	char				*pw_name;
+	char				*gr_name;
 	off_t				st_size;
 }						t_file;
 

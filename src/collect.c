@@ -6,10 +6,13 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/30 01:29:26 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/30 06:26:58 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <pwd.h>
+#include <grp.h>
+#include <uuid/uuid.h>
 #include "ft_ls.h"
 
 /*
@@ -34,6 +37,25 @@ static inline char		*cpy_path(char *parent, char *file)
 	return (path);
 }
 
+static inline void		longlist_stat(t_file *file_st, struct stat *statbuf)
+{
+	struct passwd		*pw;
+	struct group		*gr;
+
+	file_st->st_blocks = statbuf->st_blocks;
+	file_st->st_mode = statbuf->st_mode;
+	file_st->st_nlink = statbuf->st_nlink;
+	if ((pw = getpwuid(statbuf->st_uid)))
+		file_st->pw_name = ft_strdup(pw->pw_name);
+	else
+		file_st->pw_name = ft_itoa(statbuf->st_uid);
+	if ((gr = getgrgid(statbuf->st_gid)))
+		file_st->gr_name = ft_strdup(gr->gr_name);
+	else
+		file_st->gr_name = ft_itoa(statbuf->st_gid);
+	file_st->st_size = statbuf->st_size;
+}
+
 /*
 **  Backup informations about the file 'file' in the buffer pointed to
 **  by 'file_st'.
@@ -53,14 +75,9 @@ static inline int		cpy_stat(char *parent, char *file, t_file *file_st)
 	else
 	{
 		ft_strcpy(file_st->filename, file);
-		file_st->st_blocks = statbuf.st_blocks;
-		file_st->st_mode = statbuf.st_mode;
 		file_st->mtime.tv_sec = statbuf.st_mtim.tv_sec;
 		file_st->mtime.tv_nsec = statbuf.st_mtim.tv_nsec;
-		file_st->st_nlink = statbuf.st_nlink;
-		file_st->st_uid = statbuf.st_uid;
-		file_st->st_gid = statbuf.st_gid;
-		file_st->st_size = statbuf.st_size;
+		longlist_stat(file_st, &statbuf);
 		return (0);
 	}
 }

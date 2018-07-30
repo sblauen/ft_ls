@@ -6,13 +6,10 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:58:21 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/30 02:44:08 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/30 06:00:50 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pwd.h>
-#include <grp.h>
-#include <uuid/uuid.h>
 #include "ft_ls.h"
 
 static inline t_sizes	get_sizes(t_list *files)
@@ -40,19 +37,17 @@ static inline t_sizes	get_sizes(t_list *files)
 
 static inline void		longlist_uid_gid(t_file *file)
 {
-	struct passwd		*pw;
-	struct group		*gr;
 	char				*buf;
 
-	pw = getpwuid(file->st_uid);
-	gr = getgrgid(file->st_gid);
 	if (!(buf = (char *)malloc(sizeof(char)
-			* (ft_strlen(pw->pw_name) + ft_strlen(gr->gr_name)) + 6)))
+			* (ft_strlen(file->pw_name) + ft_strlen(file->gr_name)) + 6)))
 		return ;
 	*buf = ' ';
-	ft_strcpy(buf + 1, pw->pw_name);
+	ft_strcpy(buf + 1, file->pw_name);
+	free(file->pw_name);
 	ft_strcat(buf, "  ");
-	ft_strcat(buf, gr->gr_name);
+	ft_strcat(buf, file->gr_name);
+	free(file->gr_name);
 	ft_strcat(buf, "  ");
 	ft_putstr(buf);
 	free(buf);
