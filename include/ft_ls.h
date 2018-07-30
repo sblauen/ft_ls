@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/29 21:23:53 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/30 02:51:03 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ typedef struct			s_timespec
 	long				tv_nsec;
 }						t_timespec;
 
-typedef struct			s_spaces
+typedef struct			s_sizes
 {
 	size_t				nlink;
 	size_t				size;
-}						t_spaces;
+	quad_t				blocks;
+}						t_sizes;
 
 typedef struct			s_file
 {
@@ -43,6 +44,7 @@ typedef struct			s_file
 	off_t				size;
 	char				filename[256];
 	char				*pathname;
+	quad_t				st_blocks;
 	mode_t				st_mode;
 	nlink_t				st_nlink;
 	uid_t				st_uid;
