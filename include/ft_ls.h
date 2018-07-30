@@ -6,22 +6,22 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/30 06:06:00 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/30 06:36:31 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LS
-# define FT_LS
+#ifndef FT_LS_H
+# define FT_LS_H
 
-#include "libft.h"
-#include "options.h"
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <dirent.h>
-#include <stdio.h>
-#include <time.h>
-#include <errno.h>
+# include "libft.h"
+# include "options.h"
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <unistd.h>
+# include <dirent.h>
+# include <stdio.h>
+# include <time.h>
+# include <errno.h>
 
 extern t_options		g_options;
 
