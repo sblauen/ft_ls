@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:58:21 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/31 18:25:41 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/31 18:48:05 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void					print_dir(char *dir_name, t_list *dir_files)
 
 	tmp = dir_files;
 	dir_name = NULL;
-	if (g_options.format == long_listing)
+	if (tmp && g_options.format == long_listing)
 	{
 		sizes = get_sizes(tmp);
 		ft_putstr("total ");
