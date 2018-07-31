@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/30 06:36:31 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/31 02:38:45 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ typedef struct			s_timespec
 
 typedef struct			s_sizes
 {
+	quad_t				blocks;
 	size_t				nlink;
 	size_t				size;
-	quad_t				blocks;
+	size_t				uid;
 }						t_sizes;
 
 typedef struct			s_file
