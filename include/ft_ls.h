@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/31 02:38:45 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/31 04:11:08 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct			s_sizes
 	size_t				nlink;
 	size_t				size;
 	size_t				uid;
+	size_t				gid;
 }						t_sizes;
 
 typedef struct			s_file
