@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:58:21 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/30 06:00:50 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/31 03:37:54 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ static inline t_sizes	get_sizes(t_list *files)
 {
 	size_t				ret_nlink;
 	size_t				ret_size;
+	size_t				ret_uid;
 	t_sizes				sizes;
 
 	sizes.nlink = 0;
 	sizes.size = 0;
 	sizes.blocks = 0;
+	sizes.uid = 0;
 	while (files)
 	{
 		sizes.blocks += ((t_file *)(files->content))->st_blocks;
@@ -30,22 +32,27 @@ static inline t_sizes	get_sizes(t_list *files)
 		ret_size = ft_nbrpwr(((t_file *)(files->content))->st_size);
 		if (ret_size > sizes.size)
 			sizes.size = ret_size;
+		ret_uid = ft_strlen(((t_file *)(files->content))->pw_name);
+		if (ret_uid > sizes.uid)
+			sizes.uid = ret_uid;
 		files = files->next;
 	}
 	return (sizes);
 }
 
-static inline void		longlist_uid_gid(t_file *file)
+static inline void		longlist_uid_gid(t_file *file, t_sizes *spaces)
 {
 	char				*buf;
+	size_t				pw_len;
 
+	pw_len = ft_strlen(file->pw_name);
 	if (!(buf = (char *)malloc(sizeof(char)
-			* (ft_strlen(file->pw_name) + ft_strlen(file->gr_name)) + 6)))
+			* (spaces->uid + ft_strlen(file->gr_name)) + 6)))
 		return ;
 	*buf = ' ';
 	ft_strcpy(buf + 1, file->pw_name);
 	free(file->pw_name);
-	ft_strcat(buf, "  ");
+	ft_strncat_chr(buf + pw_len + 1, ' ', spaces->uid - pw_len + 2);
 	ft_strcat(buf, file->gr_name);
 	free(file->gr_name);
 	ft_strcat(buf, "  ");
@@ -61,7 +68,7 @@ static inline void		print_longlist(t_file *file, t_sizes *spaces)
 	longlist_modes(file, buf_mode);
 	ft_putstr(buf_mode);
 	ft_putnbr_ralign(file->st_nlink, spaces->nlink);
-	longlist_uid_gid(file);
+	longlist_uid_gid(file, spaces);
 	ft_putnbr_ralign(file->st_size, spaces->size);
 	strcpy(buf_time, ctime(&(file->mtime.tv_sec)) + 3);
 	strcpy(buf_time + 13, " ");
