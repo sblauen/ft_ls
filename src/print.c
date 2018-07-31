@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:58:21 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/31 04:12:17 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/31 04:29:11 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 static inline t_sizes	get_sizes(t_list *files)
 {
-	size_t				ret_nlink;
-	size_t				ret_size;
-	size_t				ret_uid;
-	size_t				ret_gid;
+	t_sizes				ret;
 	t_sizes				sizes;
+	t_file				*file;
 
 	sizes.blocks = 0;
 	sizes.nlink = 0;
@@ -27,19 +25,16 @@ static inline t_sizes	get_sizes(t_list *files)
 	sizes.gid = 0;
 	while (files)
 	{
-		sizes.blocks += ((t_file *)(files->content))->st_blocks;
-		ret_nlink = ft_nbrpwr(((t_file *)(files->content))->st_nlink);
-		if (ret_nlink > sizes.nlink)
-			sizes.nlink = ret_nlink;
-		ret_size = ft_nbrpwr(((t_file *)(files->content))->st_size);
-		if (ret_size > sizes.size)
-			sizes.size = ret_size;
-		ret_uid = ft_strlen(((t_file *)(files->content))->pw_name);
-		if (ret_uid > sizes.uid)
-			sizes.uid = ret_uid;
-		ret_gid = ft_strlen(((t_file *)(files->content))->gr_name);
-		if (ret_gid > sizes.gid)
-			sizes.gid = ret_gid;
+		file = (t_file *)(files->content);
+		sizes.blocks += file->st_blocks;
+		if ((ret.nlink = ft_nbrpwr(file->st_nlink)) > sizes.nlink)
+			sizes.nlink = ret.nlink;
+		if ((ret.size = ft_nbrpwr(file->st_size)) > sizes.size)
+			sizes.size = ret.size;
+		if ((ret.uid = ft_strlen(file->pw_name)) > sizes.uid)
+			sizes.uid = ret.uid;
+		if ((ret.gid = ft_strlen(file->gr_name)) > sizes.gid)
+			sizes.gid = ret.gid;
 		files = files->next;
 	}
 	return (sizes);
