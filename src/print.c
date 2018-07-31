@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:58:21 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/31 03:37:54 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/31 04:12:17 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ static inline t_sizes	get_sizes(t_list *files)
 	size_t				ret_nlink;
 	size_t				ret_size;
 	size_t				ret_uid;
+	size_t				ret_gid;
 	t_sizes				sizes;
 
+	sizes.blocks = 0;
 	sizes.nlink = 0;
 	sizes.size = 0;
-	sizes.blocks = 0;
 	sizes.uid = 0;
+	sizes.gid = 0;
 	while (files)
 	{
 		sizes.blocks += ((t_file *)(files->content))->st_blocks;
@@ -35,6 +37,9 @@ static inline t_sizes	get_sizes(t_list *files)
 		ret_uid = ft_strlen(((t_file *)(files->content))->pw_name);
 		if (ret_uid > sizes.uid)
 			sizes.uid = ret_uid;
+		ret_gid = ft_strlen(((t_file *)(files->content))->gr_name);
+		if (ret_gid > sizes.gid)
+			sizes.gid = ret_gid;
 		files = files->next;
 	}
 	return (sizes);
@@ -44,10 +49,11 @@ static inline void		longlist_uid_gid(t_file *file, t_sizes *spaces)
 {
 	char				*buf;
 	size_t				pw_len;
+	size_t				gr_len;
 
 	pw_len = ft_strlen(file->pw_name);
-	if (!(buf = (char *)malloc(sizeof(char)
-			* (spaces->uid + ft_strlen(file->gr_name)) + 6)))
+	gr_len = ft_strlen(file->gr_name);
+	if (!(buf = (char *)malloc(sizeof(char) * (spaces->uid + spaces->gid) + 6)))
 		return ;
 	*buf = ' ';
 	ft_strcpy(buf + 1, file->pw_name);
@@ -55,7 +61,7 @@ static inline void		longlist_uid_gid(t_file *file, t_sizes *spaces)
 	ft_strncat_chr(buf + pw_len + 1, ' ', spaces->uid - pw_len + 2);
 	ft_strcat(buf, file->gr_name);
 	free(file->gr_name);
-	ft_strcat(buf, "  ");
+	ft_strncat_chr(buf + gr_len + 1, ' ', spaces->gid - gr_len + 2);
 	ft_putstr(buf);
 	free(buf);
 }
