@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:58:21 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/31 04:29:11 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/31 18:25:41 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,7 @@ void					print_dir(char *dir_name, t_list *dir_files)
 	t_sizes				sizes;
 
 	tmp = dir_files;
-	if (g_options.multi_files)
-	{
-		ft_putstr(dir_name);
-		ft_putstr(":\n");
-	}
+	dir_name = NULL;
 	if (g_options.format == long_listing)
 	{
 		sizes = get_sizes(tmp);

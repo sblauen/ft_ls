@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/30 06:34:22 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/07/31 18:39:32 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ static inline void		recursive_list(t_list *content)
 	}
 }
 
+static inline void		list_dirname(char *dir_name)
+{
+	ft_putstr(dir_name);
+	ft_putstr(":\n");
+}
+
 /*
 **  list the content of the directory 'dir_name'.
 **
@@ -41,10 +47,14 @@ void					list_content(char *dir_name)
 	t_list				*dir_content;
 	static int			n = -1;
 
-	if (!(get_content(dir_name, &dir_content)))
+	if (g_options.multi_files)
 	{
 		if (!n)
 			ft_putchar('\n');
+		list_dirname(dir_name);
+	}
+	if (!(get_content(dir_name, &dir_content)))
+	{
 		ft_lstsort_merge(&dir_content, &cmp_files);
 		print_dir(dir_name, dir_content);
 	}
