@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/30 06:32:52 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/03 03:43:15 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static inline void		longlist_stat(t_file *file_st, struct stat *statbuf)
 	struct group		*gr;
 
 	file_st->st_blocks = statbuf->st_blocks;
-	file_st->st_mode = statbuf->st_mode;
 	file_st->st_nlink = statbuf->st_nlink;
 	if ((pw = getpwuid(statbuf->st_uid)))
 		file_st->pw_name = ft_strdup(pw->pw_name);
@@ -81,9 +80,11 @@ static inline int		cpy_stat(char *parent, char *file, t_file *file_st)
 	else
 	{
 		ft_strcpy(file_st->filename, file);
+		file_st->st_mode = statbuf.st_mode;
 		file_st->mtime.tv_sec = statbuf.st_mtim.tv_sec;
 		file_st->mtime.tv_nsec = statbuf.st_mtim.tv_nsec;
-		longlist_stat(file_st, &statbuf);
+		if (g_options.format == long_listing)
+			longlist_stat(file_st, &statbuf);
 		return (0);
 	}
 }
