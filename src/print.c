@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:58:21 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/31 18:48:05 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/03 00:16:54 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,11 @@ static inline void		longlist_uid_gid(t_file *file, t_sizes *spaces)
 		return ;
 	*buf = ' ';
 	ft_strcpy(buf + 1, file->pw_name);
-	free(file->pw_name);
 	ft_strncat_chr(buf + pw_len + 1, ' ', spaces->uid - pw_len + 2);
 	ft_strcat(buf, file->gr_name);
-	free(file->gr_name);
 	ft_strncat_chr(buf + gr_len + 1, ' ', spaces->gid - gr_len + 2);
 	ft_putstr(buf);
-	free(buf);
+	ft_memdel((void **)&buf);
 }
 
 static inline void		print_longlist(t_file *file, t_sizes *spaces)
