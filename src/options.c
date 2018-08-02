@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/29 19:38:36 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/04 05:40:25 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/02 22:20:48 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ void							check_options(int ac, char **av, int *n)
 			break ;
 		++(*n);
 	}
-	if (ac - *n > 1 || g_options.recursive)
+	if (ac - *n > 1)
 		g_options.multi_files = 1;
 }
