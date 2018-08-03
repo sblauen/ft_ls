@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:51:34 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/03 04:59:44 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/03 05:02:32 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ static inline t_list			*parse_file_args(char **av)
 			arg.mtime.tv_sec = statbuf.st_mtim.tv_sec;
 			arg.mtime.tv_nsec = statbuf.st_mtim.tv_nsec;
 			arg.st_mode = statbuf.st_mode;
+			arg.pw_name = NULL;
+			arg.gr_name = NULL;
 			if (!(node = ft_lstnew(&arg, sizeof(arg))))
 				return (NULL);
 			if (!file_args)
