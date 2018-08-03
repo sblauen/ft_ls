@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/03 03:43:15 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/03 05:57:10 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,16 +111,16 @@ static inline void		add_new_node(t_list **content, t_file *file_st)
 **  entries in the directory stream.
 */
 
-int						get_content(char *dir_name, t_list **content)
+int						get_content(t_file *dir, t_list **content)
 {
 	t_file				file_st;
 	struct dirent		*dir_entry;
 	DIR					*dir_stream;
 
 	*content = NULL;
-	if (!(dir_stream = opendir(dir_name)))
+	if (!(dir_stream = opendir(dir->pathname)))
 	{
-		error_put(dir_name);
+		error_put(dir->filename);
 		return (-1);
 	}
 	else
@@ -130,12 +130,12 @@ int						get_content(char *dir_name, t_list **content)
 			if (((g_options.dotfiles == none) && (*(dir_entry->d_name) != '.'))
 					|| (g_options.dotfiles == all))
 			{
-				if (!cpy_stat(dir_name, dir_entry->d_name, &file_st))
+				if (!cpy_stat(dir->pathname, dir_entry->d_name, &file_st))
 					add_new_node(content, &file_st);
 			}
 		}
 		if (closedir(dir_stream) == -1)
-			error_put(dir_name);
+			error_put(dir->pathname);
 	}
 	return (0);
 }
