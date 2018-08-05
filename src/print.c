@@ -6,38 +6,38 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:58:21 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/03 00:16:54 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/05 04:16:05 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static inline t_sizes	get_sizes(t_list *files)
+static inline void		get_sizes(t_list *files, t_sizes *sizes)
 {
 	t_sizes				ret;
-	t_sizes				sizes;
 	t_file				*file;
 
-	sizes.blocks = 0;
-	sizes.nlink = 0;
-	sizes.size = 0;
-	sizes.uid = 0;
-	sizes.gid = 0;
 	while (files)
 	{
 		file = (t_file *)(files->content);
-		sizes.blocks += file->st_blocks;
-		if ((ret.nlink = ft_nbrpwr(file->st_nlink)) > sizes.nlink)
-			sizes.nlink = ret.nlink;
-		if ((ret.size = ft_nbrpwr(file->st_size)) > sizes.size)
-			sizes.size = ret.size;
-		if ((ret.uid = ft_strlen(file->pw_name)) > sizes.uid)
-			sizes.uid = ret.uid;
-		if ((ret.gid = ft_strlen(file->gr_name)) > sizes.gid)
-			sizes.gid = ret.gid;
+		sizes->blocks += file->st_blocks;
+		if ((ret.nlink = ft_nbrpwr(file->st_nlink)) > sizes->nlink)
+			sizes->nlink = ret.nlink;
+		if ((ret.uid = ft_strlen(file->pw_name)) > sizes->uid)
+			sizes->uid = ret.uid;
+		if ((ret.gid = ft_strlen(file->gr_name)) > sizes->gid)
+			sizes->gid = ret.gid;
+		if (S_ISCHR(file->st_mode) || S_ISBLK(file->st_mode))
+		{
+			if ((ret.mjr = ft_nbrpwr((file->st_rdev >> 8) & 0xff)) > sizes->mjr)
+				sizes->mjr = ret.mjr;
+			if ((ret.size = ft_nbrpwr(file->st_rdev & 0xff)) > sizes->size)
+				sizes->size = ret.size;
+		}
+		else if ((ret.size = ft_nbrpwr(file->st_size)) > sizes->size)
+			sizes->size = ret.size;
 		files = files->next;
 	}
-	return (sizes);
 }
 
 static inline void		longlist_uid_gid(t_file *file, t_sizes *spaces)
@@ -68,7 +68,14 @@ static inline void		print_longlist(t_file *file, t_sizes *spaces)
 	ft_putstr(buf_mode);
 	ft_putnbr_ralign(file->st_nlink, spaces->nlink);
 	longlist_uid_gid(file, spaces);
-	ft_putnbr_ralign(file->st_size, spaces->size);
+	if (S_ISCHR(file->st_mode) || S_ISBLK(file->st_mode))
+	{
+		ft_putnbr_ralign((file->st_rdev >> 8) & 0xff, spaces->mjr);
+		ft_putstr(", ");
+		ft_putnbr_ralign(file->st_rdev & 0xff, spaces->size);
+	}
+	else
+		ft_putnbr_ralign(file->st_size, spaces->size);
 	strcpy(buf_time, ctime(&(file->mtime.tv_sec)) + 3);
 	strcpy(buf_time + 13, " ");
 	ft_putstr(buf_time);
@@ -83,7 +90,13 @@ void					print_dir(char *dir_name, t_list *dir_files)
 	dir_name = NULL;
 	if (tmp && g_options.format == long_listing)
 	{
-		sizes = get_sizes(tmp);
+		sizes.blocks = 0;
+		sizes.nlink = 0;
+		sizes.size = 0;
+		sizes.uid = 0;
+		sizes.gid = 0;
+		sizes.mjr = 0;
+		get_sizes(tmp, &sizes);
 		ft_putstr("total ");
 		ft_putnbr(sizes.blocks);
 		ft_putchar('\n');

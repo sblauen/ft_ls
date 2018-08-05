@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/03 06:04:50 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/05 03:20:12 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,21 @@ typedef struct			s_sizes
 	size_t				size;
 	size_t				uid;
 	size_t				gid;
+	size_t				mjr;
 }						t_sizes;
 
 typedef struct			s_file
 {
 	t_timespec			mtime;
-	off_t				size;
 	char				filename[256];
 	char				*pathname;
-	quad_t				st_blocks;
-	mode_t				st_mode;
-	nlink_t				st_nlink;
 	char				*pw_name;
 	char				*gr_name;
 	off_t				st_size;
+	quad_t				st_blocks;
+	nlink_t				st_nlink;
+	dev_t				st_rdev;
+	mode_t				st_mode;
 }						t_file;
 
 void					list_content(t_file *dir);
