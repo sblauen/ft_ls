@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:58:21 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/05 04:16:05 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/05 10:54:31 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static inline void		get_sizes(t_list *files, t_sizes *sizes)
 	{
 		file = (t_file *)(files->content);
 		sizes->blocks += file->st_blocks;
-		if ((ret.nlink = ft_nbrpwr(file->st_nlink)) > sizes->nlink)
+		if ((ret.nlink = ft_nbrdgts(file->st_nlink)) > sizes->nlink)
 			sizes->nlink = ret.nlink;
 		if ((ret.uid = ft_strlen(file->pw_name)) > sizes->uid)
 			sizes->uid = ret.uid;
@@ -29,12 +29,12 @@ static inline void		get_sizes(t_list *files, t_sizes *sizes)
 			sizes->gid = ret.gid;
 		if (S_ISCHR(file->st_mode) || S_ISBLK(file->st_mode))
 		{
-			if ((ret.mjr = ft_nbrpwr((file->st_rdev >> 8) & 0xff)) > sizes->mjr)
+			if ((ret.mjr = ft_nbrdgts((file->st_rdev >> 8) & 0xff)) > sizes->mjr)
 				sizes->mjr = ret.mjr;
-			if ((ret.size = ft_nbrpwr(file->st_rdev & 0xff)) > sizes->size)
+			if ((ret.size = ft_nbrdgts(file->st_rdev & 0xff)) > sizes->size)
 				sizes->size = ret.size;
 		}
-		else if ((ret.size = ft_nbrpwr(file->st_size)) > sizes->size)
+		else if ((ret.size = ft_nbrdgts(file->st_size)) > sizes->size)
 			sizes->size = ret.size;
 		files = files->next;
 	}
