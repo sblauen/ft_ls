@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/05 03:20:12 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/05 11:59:23 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@
 # include <stdio.h>
 # include <time.h>
 # include <errno.h>
+
+# ifdef __APPLE__
+#  define MAJOR 24
+# else
+#  define MAJOR 8
+# endif
 
 extern t_options		g_options;
 

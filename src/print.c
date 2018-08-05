@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:58:21 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/05 10:54:31 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/05 13:53:38 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static inline void		get_sizes(t_list *files, t_sizes *sizes)
 			sizes->gid = ret.gid;
 		if (S_ISCHR(file->st_mode) || S_ISBLK(file->st_mode))
 		{
-			if ((ret.mjr = ft_nbrdgts((file->st_rdev >> 8) & 0xff)) > sizes->mjr)
+			if ((ret.mjr = ft_nbrdgts((file->st_rdev >> MAJOR) & 0xff))
+				> sizes->mjr)
 				sizes->mjr = ret.mjr;
 			if ((ret.size = ft_nbrdgts(file->st_rdev & 0xff)) > sizes->size)
 				sizes->size = ret.size;
@@ -70,7 +71,7 @@ static inline void		print_longlist(t_file *file, t_sizes *spaces)
 	longlist_uid_gid(file, spaces);
 	if (S_ISCHR(file->st_mode) || S_ISBLK(file->st_mode))
 	{
-		ft_putnbr_ralign((file->st_rdev >> 8) & 0xff, spaces->mjr);
+		ft_putnbr_ralign((file->st_rdev >> MAJOR) & 0xff, spaces->mjr);
 		ft_putstr(", ");
 		ft_putnbr_ralign(file->st_rdev & 0xff, spaces->size);
 	}
