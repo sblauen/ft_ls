@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/05 02:50:51 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/07 00:45:11 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static inline int		cpy_stat(char *parent, char *file, t_file *file_st)
 	file_st->pathname = cpy_path(parent, file);
 	if (lstat(file_st->pathname, &statbuf))
 	{
-		error_put(file_st->pathname);
+		error_put(file_st);
 		return (-1);
 	}
 	else
@@ -120,7 +120,7 @@ int						get_content(t_file *dir, t_list **content)
 	*content = NULL;
 	if (!(dir_stream = opendir(dir->pathname)))
 	{
-		error_put(dir->filename);
+		error_put(dir);
 		return (-1);
 	}
 	else
@@ -135,7 +135,7 @@ int						get_content(t_file *dir, t_list **content)
 			}
 		}
 		if (closedir(dir_stream) == -1)
-			error_put(dir->pathname);
+			error_put(dir);
 	}
 	return (0);
 }
