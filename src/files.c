@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:51:34 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/07 01:16:19 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/07 01:37:21 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static inline t_list			*parse_file_args(char **av)
 	{
 		arg.pathname = *av;
 		arg.filename[0] = 0;
-		if (stat(arg.pathname, &statbuf))
+		if (lstat(arg.pathname, &statbuf))
 			error_put(&arg);
 		else
 		{
