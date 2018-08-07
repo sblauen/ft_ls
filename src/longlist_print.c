@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/06 01:49:51 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/06 20:15:30 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/07 23:38:46 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,83 +41,77 @@ static inline void		get_sizes(t_list *files, t_sizes *sizes)
 	}
 }
 
-static inline char		*nbr_align(int n, size_t sp)
+static inline size_t	nbr_align(char *buf, int n, size_t sp)
 {
-	static char			buf[11];
+	register size_t		len;
 	register int		k;
 
 	k = 10;
-	buf[10] = 0;
+	buf[sp] = 0;
+	len = sp;
 	if (!n)
-		buf[--k] = '0';
+		buf[--sp] = '0';
 	else
 	{
 		while (n)
 		{
-			buf[--k] = n % 10 + '0';
+			buf[--sp] = n % 10 + '0';
 			n /= 10;
 		}
 	}
-	n = (int)(sp - 10 + k);
-	while (n-- > 0)
-		buf[--k] = ' ';
-	return (buf + k);
+	while (sp > 0)
+		buf[--sp] = ' ';
+	return (len);
 }
 
-static inline char		*longlist_uid_gid(t_file *file, t_sizes *spaces)
+static inline size_t		longlist_id(t_file *file, t_sizes *sp, char *buf)
 {
-	char				*buf;
 	size_t				pw_len;
 	size_t				gr_len;
+	size_t				len;
+	size_t				n;
 
+	*buf = ' ';
+	len = 1;
 	pw_len = ft_strlen(file->pw_name);
 	gr_len = ft_strlen(file->gr_name);
-	if (!(buf = (char *)malloc(sizeof(char) * (spaces->uid + spaces->gid) + 6)))
-		return (NULL);
-	*buf = ' ';
-	ft_strcpy(buf + 1, file->pw_name);
-	ft_strncat_chr(buf + pw_len + 1, ' ', spaces->uid - pw_len + 2);
-	ft_strcat(buf, file->gr_name);
-	ft_strncat_chr(buf + gr_len + 1, ' ', spaces->gid - gr_len + 2);
-	return (buf);
+	len += ft_strlcpy(buf + 1, file->pw_name, pw_len + 1);
+	n = sp->uid - pw_len + 2;
+	while (n-- > 0)
+		buf[len++] = ' ';
+	len += ft_strlcpy(buf + len, file->gr_name, gr_len + 1);
+	n = sp->gid - gr_len + 2;
+	while (n-- > 0)
+		buf[len++] = ' ';
+	return (len);
 }
 
-static inline char		*longlist_buf(t_file *file, t_sizes *spaces)
+static inline char		*longlist_buf(t_file *file, t_sizes *sp)
 {
 	char				*buf;
-	char				*tmp;
 	size_t				len;
 
-	len = 12 + spaces->nlink + spaces->uid + spaces->gid + 5
-			+ spaces->mjr + spaces->size + 2 + 14 + ft_strlen(file->filename) + 1;
+	len = 12 + sp->nlink + sp->uid + sp->gid + 5
+			+ sp->mjr + sp->size + 2 + 14 + ft_strlen(file->filename) + 1;
 	if (!(buf = ft_strnew(len)))
 		return (NULL);
 	longlist_modes(file, buf);
-	len = ft_strlcpy(buf + 12, nbr_align(file->st_nlink, spaces->nlink), spaces->nlink + 1) + 12;
-	tmp = longlist_uid_gid(file, spaces);
-	len += ft_strlcpy(buf + len, tmp, ft_strlen(tmp) + 1);
-	ft_memdel((void **)&tmp);
-	if (spaces->mjr)
+	len = nbr_align(buf + 12, file->st_nlink, sp->nlink) + 12;
+	len += longlist_id(file, sp, buf + len);
+	if (sp->mjr)
 	{
 		if (S_ISCHR(file->st_mode) || S_ISBLK(file->st_mode))
 		{
-			len += ft_strlcpy(buf + len, nbr_align((file->st_rdev >> MAJOR)
-				& 0xff, spaces->mjr), spaces->mjr + 1);
+			len += nbr_align(buf + len, (file->st_rdev >> MAJOR) & 0xff, sp->mjr);
 			len += ft_strlcpy(buf + len, ", ", 3);
-			len += ft_strlcpy(buf + len, nbr_align(file->st_rdev & 0xff,
-						spaces->size), spaces->size + 1);
+			len += nbr_align(buf + len, file->st_rdev & 0xff, sp->size);
 		}
 		else
-		{
-			len += ft_strlcpy(buf + len,
-				nbr_align(file->st_size, spaces->mjr + spaces->size + 2),
-				spaces->size + spaces->mjr + 3);
-		}
+			len += nbr_align(buf + len, file->st_size, sp->mjr + sp->size + 2);
 	}
 	else
-		len += ft_strlcpy(buf + len, nbr_align(file->st_size, spaces->size), spaces->size + 1);
-	len += ft_strlcpy(buf + len, ctime(&(file->mtime.tv_sec)) + 3, 14);
-	len -= 9;
+		len += nbr_align(buf + len, file->st_size, sp->size);
+	len += ft_strlcpy(buf + len, ctime(&(file->mtime.tv_sec)) + 3, 14) - 9;
 	len += ft_strlcpy(buf + len, " ", 2);
 	ft_strcpy(buf + len, file->filename);
 	return (buf);
@@ -126,6 +120,7 @@ static inline char		*longlist_buf(t_file *file, t_sizes *spaces)
 void					longlist_print(t_list *files)
 {
 	char				*buf;
+	char				tot[18];
 	t_list				*tmp;
 	t_sizes				sizes;
 
@@ -139,9 +134,9 @@ void					longlist_print(t_list *files)
 		sizes.gid = 0;
 		sizes.mjr = 0;
 		get_sizes(tmp, &sizes);
-		ft_putstr("total ");
-		ft_putnbr(sizes.blocks);
-		ft_putchar('\n');
+		ft_strcpy(tot, "total ");
+		nbr_align(tot + 6, sizes.blocks ,ft_nbrdgts(sizes.blocks));
+		ft_putendl(tot);
 	}
 	while (tmp)
 	{
