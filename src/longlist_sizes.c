@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 16:17:54 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/11 16:34:56 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/11 19:53:55 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 static inline void		init_sizes(t_sizes *sizes)
 {
-		sizes->blocks = 0;
 		sizes->nlink = 0;
-		sizes->size = 0;
+		sizes->name = 0;
 		sizes->uid = 0;
 		sizes->gid = 0;
 		sizes->mjr = 0;
+		sizes->size = 0;
+		sizes->blocks = 0;
 }
 
 static inline void		get_sizes(t_list *files, t_sizes *sizes)
@@ -31,6 +32,8 @@ static inline void		get_sizes(t_list *files, t_sizes *sizes)
 	{
 		file = (t_file *)(files->content);
 		sizes->blocks += file->st_blocks;
+		if ((ret.name = ft_strlen(file->filename)) > sizes->name)
+			sizes->name = ret.name;
 		if ((ret.nlink = ft_nbrdgts(file->st_nlink)) > sizes->nlink)
 			sizes->nlink = ret.nlink;
 		if ((ret.uid = ft_strlen(file->pw_name)) > sizes->uid)
@@ -56,5 +59,5 @@ void					longlist_sizes(t_list *files, t_sizes *sizes)
 	init_sizes(sizes);
 	get_sizes(files, sizes);
 	sizes->len = 12 + sizes->nlink + sizes->uid + sizes->gid + 5
-					+ sizes->mjr + sizes->size + 2 + 14 + 1;
+					+ sizes->mjr + sizes->size + sizes->name + 2 + 14 + 1;
 }

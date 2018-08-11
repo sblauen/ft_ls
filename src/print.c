@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:58:21 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/11 16:21:24 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/11 20:09:59 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,15 @@ static inline void		print_longlist(t_list *files)
 		nbr_align(tot + 6, sizes.blocks ,ft_nbrdgts(sizes.blocks));
 		ft_putendl(tot);
 	}
+	if (!(buf = ft_strnew(sizes.len)))
+		return ;
 	while (tmp)
 	{
-		buf = longlist_buf(((t_file *)(tmp->content)), &sizes);
+		longlist_buf(((t_file *)(tmp->content)), &sizes, buf);
 		ft_putendl(buf);
-		ft_memdel((void **)&buf);
 		tmp = tmp->next;
 	}
+	ft_memdel((void **)&buf);
 }
 
 void					print_dir(t_list *dir_files)
