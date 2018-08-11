@@ -1,0 +1,60 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   longlist_sizes.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/08/11 16:17:54 by sblauens          #+#    #+#             */
+/*   Updated: 2018/08/11 16:34:56 by sblauens         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_ls.h"
+
+static inline void		init_sizes(t_sizes *sizes)
+{
+		sizes->blocks = 0;
+		sizes->nlink = 0;
+		sizes->size = 0;
+		sizes->uid = 0;
+		sizes->gid = 0;
+		sizes->mjr = 0;
+}
+
+static inline void		get_sizes(t_list *files, t_sizes *sizes)
+{
+	t_sizes				ret;
+	t_file				*file;
+
+	while (files)
+	{
+		file = (t_file *)(files->content);
+		sizes->blocks += file->st_blocks;
+		if ((ret.nlink = ft_nbrdgts(file->st_nlink)) > sizes->nlink)
+			sizes->nlink = ret.nlink;
+		if ((ret.uid = ft_strlen(file->pw_name)) > sizes->uid)
+			sizes->uid = ret.uid;
+		if ((ret.gid = ft_strlen(file->gr_name)) > sizes->gid)
+			sizes->gid = ret.gid;
+		if (S_ISCHR(file->st_mode) || S_ISBLK(file->st_mode))
+		{
+			if ((ret.mjr = ft_nbrdgts((file->st_rdev >> MAJOR) & 0xff))
+				> sizes->mjr)
+				sizes->mjr = ret.mjr;
+			if ((ret.size = ft_nbrdgts(file->st_rdev & 0xff)) > sizes->size)
+				sizes->size = ret.size;
+		}
+		else if ((ret.size = ft_nbrdgts(file->st_size)) > sizes->size)
+			sizes->size = ret.size;
+		files = files->next;
+	}
+}
+
+void					longlist_sizes(t_list *files, t_sizes *sizes)
+{
+	init_sizes(sizes);
+	get_sizes(files, sizes);
+	sizes->len = 12 + sizes->nlink + sizes->uid + sizes->gid + 5
+					+ sizes->mjr + sizes->size + 2 + 14 + 1;
+}
