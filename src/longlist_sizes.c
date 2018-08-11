@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 16:17:54 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/11 22:14:09 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/11 23:18:58 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ void					longlist_sizes(t_list *files, t_sizes *sizes)
 {
 	init_sizes(sizes);
 	get_sizes(files, sizes);
-	sizes->len = 12 + sizes->nlink + sizes->uid + sizes->gid + 5
+	sizes->len = 12 + sizes->nlink + sizes->uid + sizes->gid + 5 + 128
 					+ sizes->mjr + sizes->size + sizes->name + 2 + 14 + 1;
 }
