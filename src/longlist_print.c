@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/06 01:49:51 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/11 20:10:41 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/11 23:32:42 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,17 @@ static inline size_t		longlist_id(t_file *file, t_sizes *sp, char *buf)
 	return (len);
 }
 
+static inline void		longlist_lnk(t_file *file, char *buf)
+{
+	size_t				len;
+
+	ft_strcpy(buf, " -> ");
+	if ((len = readlink(file->pathname, buf + 4, 128)) > 0)
+	{
+		*(buf + len + 4) = 0;
+	}
+}
+
 void					longlist_buf(t_file *file, t_sizes *sp, char *buf)
 {
 	size_t				len;
@@ -57,5 +68,7 @@ void					longlist_buf(t_file *file, t_sizes *sp, char *buf)
 		len += nbr_align(buf + len, file->st_size, sp->size);
 	len += ft_strlcpy(buf + len, ctime(&(file->mtime.tv_sec)) + 3, 14) - 9;
 	len += ft_strlcpy(buf + len, " ", 2);
-	ft_strcpy(buf + len, file->filename);
+	len += ft_strlcpy(buf + len, file->filename, sp->name + 1);
+	if (S_ISLNK(file->st_mode))
+		longlist_lnk(file, buf + len);
 }
