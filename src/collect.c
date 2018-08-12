@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/07 00:45:11 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/12 15:31:57 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,23 +87,6 @@ static inline int		cpy_stat(char *parent, char *file, t_file *file_st)
 			longlist_stat(file_st, &statbuf);
 		return (0);
 	}
-}
-
-/*
-**  Make a new node containing the data of 'file_st' and add it to
-**  the list pointed to by '*content'.
-*/
-
-static inline void		add_new_node(t_list **content, t_file *file_st)
-{
-	t_list				*node;
-
-	if (!(node = ft_lstnew(file_st, sizeof(*file_st))))
-		return ;
-	if (!*content)
-		*content = node;
-	else
-		ft_lstadd_bck(content, node);
 }
 
 /*
