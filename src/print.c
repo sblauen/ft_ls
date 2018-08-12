@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:58:21 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/11 20:09:59 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/12 02:35:24 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,11 @@ static inline void		print_longlist(t_list *files)
 	t_sizes				sizes;
 
 	tmp = files;
-	if (tmp)
-	{
-		longlist_sizes(tmp, &sizes);
-		ft_strcpy(tot, "total ");
-		nbr_align(tot + 6, sizes.blocks ,ft_nbrdgts(sizes.blocks));
-		ft_putendl(tot);
-	}
+	buf = NULL;
+	longlist_sizes(tmp, &sizes);
+	ft_strcpy(tot, "total ");
+	nbr_align(tot + 6, sizes.blocks, ft_nbrdgts(sizes.blocks));
+	ft_putendl(tot);
 	if (!(buf = ft_strnew(sizes.len)))
 		return ;
 	while (tmp)
