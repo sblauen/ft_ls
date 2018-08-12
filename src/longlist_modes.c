@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/28 17:50:55 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/12 03:56:41 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/12 14:47:36 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,15 @@ static inline void		longlist_usrperm(t_file *file, char *buf)
 		buf[2] = 'w';
 	else
 		buf[2] = '-';
-	if (S_IXUSR & file->st_mode)
-		buf[3] = 'x';
-	else
+	if (!(S_IXUSR & file->st_mode) && !(S_ISUID & file->st_mode))
 		buf[3] = '-';
+	else if (S_IXUSR & file->st_mode)
+		if (!(S_ISUID & file->st_mode))
+			buf[3] = 'x';
+		else
+			buf[3] = 's';
+	else
+		buf[3] = 'S';
 }
 
 static inline void		longlist_grpperm(t_file *file, char *buf)
