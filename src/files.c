@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:51:34 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/12 16:25:46 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/13 01:15:58 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ static inline t_list			*parse_file_args(char **av)
 	while (*av)
 	{
 		arg.pathname = *av;
-		arg.filename[0] = 0;
 		if (get_stat(arg.pathname, &statbuf))
 			error_put(&arg);
 		else
 		{
 			arg.pathname = ft_strdup(*av);
+			arg.filename = arg.pathname;
 			arg.mtime.tv_sec = statbuf.st_mtim.tv_sec;
 			arg.mtime.tv_nsec = statbuf.st_mtim.tv_nsec;
 			arg.st_mode = statbuf.st_mode;
@@ -88,13 +88,14 @@ void							check_files(char **av)
 		{
 			ft_lstsort_merge(&args, &cmp_files);
 			iter_file_args(args);
-			ft_lstdel(&args, &del_file_node);
+			ft_lstdel(&args, &del_args_node);
 		}
 	}
 	else
 	{
-		dot.pathname = dot.filename;
-		ft_strcpy(dot.pathname, ".");
+		dot.pathname = ft_strdup(".");
+		dot.filename = dot.pathname;
 		list_content(&dot);
+		free(dot.pathname);
 	}
 }

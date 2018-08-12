@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/12 15:31:21 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/13 00:40:10 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct			s_sizes
 typedef struct			s_file
 {
 	t_timespec			mtime;
-	char				filename[256];
+	char				*filename;
 	char				*pathname;
 	char				*pw_name;
 	char				*gr_name;
@@ -71,6 +71,7 @@ void					longlist_sizes(t_list *files, t_sizes *sizes);
 void					longlist_buf(t_file *file, t_sizes *sp, char *buf);
 void					add_new_node(t_list **content, t_file *file_st);
 void					del_file_node(void *content, size_t size);
+void					del_args_node(void *content, size_t size);
 void					check_options(int ac, char **av, int *n);
 void					check_files(char **av);
 int						cmp_files(void *f1, void *f2);
