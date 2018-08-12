@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/28 17:50:55 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/12 03:34:22 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/12 03:56:41 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,15 @@ static inline void		longlist_othperm(t_file *file, char *buf)
 		buf[8] = 'w';
 	else
 		buf[8] = '-';
-	if (S_IXOTH & file->st_mode)
-		if (S_ISVTX & file->st_mode)
-			buf[9] = 't';
-		else
-			buf[9] = 'x';
-	else if (S_ISVTX & file->st_mode)
-		buf[9] = 'T';
-	else
+	if (!(S_IXOTH & file->st_mode) && !(S_ISVTX & file->st_mode))
 		buf[9] = '-';
+	else if (S_IXOTH & file->st_mode)
+		if (!(S_ISVTX & file->st_mode))
+			buf[9] = 'x';
+		else
+			buf[9] = 't';
+	else
+		buf[9] = 'T';
 }
 
 void					longlist_modes(t_file *file, char *buf)
