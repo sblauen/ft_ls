@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/12 15:31:57 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/13 00:03:56 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static inline int		cpy_stat(char *parent, char *file, t_file *file_st)
 	}
 	else
 	{
-		ft_strcpy(file_st->filename, file);
+		file_st->filename = ft_strdup(file);
 		file_st->st_mode = statbuf.st_mode;
 		file_st->mtime.tv_sec = statbuf.st_mtim.tv_sec;
 		file_st->mtime.tv_nsec = statbuf.st_mtim.tv_nsec;
