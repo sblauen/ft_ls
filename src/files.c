@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:51:34 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/12 15:39:54 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/12 16:25:46 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,21 @@ static inline void				iter_file_args(t_list *file_args)
 	}
 }
 
+static inline int				get_stat(char *path, struct stat *sb)
+{
+	if (g_options.format == long_listing)
+	{
+		if (lstat(path, sb))
+			return (-1);
+	}
+	else
+	{
+		if (stat(path, sb))
+			return (-1);
+	}
+	return (0);
+}
+
 static inline t_list			*parse_file_args(char **av)
 {
 	t_list			*file_args;
@@ -43,7 +58,7 @@ static inline t_list			*parse_file_args(char **av)
 	{
 		arg.pathname = *av;
 		arg.filename[0] = 0;
-		if (lstat(arg.pathname, &statbuf))
+		if (get_stat(arg.pathname, &statbuf))
 			error_put(&arg);
 		else
 		{
