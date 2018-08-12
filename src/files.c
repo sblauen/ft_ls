@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:51:34 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/07 01:37:21 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/12 15:39:54 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static inline void				iter_file_args(t_list *file_args)
 static inline t_list			*parse_file_args(char **av)
 {
 	t_list			*file_args;
-	t_list			*node;
 	t_file			arg;
 	struct stat		statbuf;
 
@@ -54,12 +53,7 @@ static inline t_list			*parse_file_args(char **av)
 			arg.st_mode = statbuf.st_mode;
 			arg.pw_name = NULL;
 			arg.gr_name = NULL;
-			if (!(node = ft_lstnew(&arg, sizeof(arg))))
-				return (NULL);
-			if (!file_args)
-				file_args = node;
-			else
-				ft_lstadd_bck(&file_args, node);
+			add_new_node(&file_args, &arg);
 		}
 		++av;
 	}
