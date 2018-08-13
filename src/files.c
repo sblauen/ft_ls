@@ -99,6 +99,7 @@ static inline t_list	*parse_file_args(char **av)
 	t_file				arg;
 
 	file_args = NULL;
+	arg.filename = NULL;
 	while (*av)
 	{
 		arg.pathname = *av;
