@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:51:34 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/13 02:03:48 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/13 02:47:36 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,11 @@ static inline void		iter_file_args(t_list *file_args)
 			add_new_node(&files, (t_file *)(tmp->content));
 		tmp = tmp->next;
 	}
-	print_files(files);
 	if (files)
 	{
-		ft_putchar('\n');
+		print_files(files);
+		if (ft_lstsize(file_args) > ft_lstsize(files))
+			ft_putchar('\n');
 		ft_lstdel(&files, &del_nodes);
 	}
 	tmp = file_args;
