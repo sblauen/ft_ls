@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/13 00:03:56 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/13 04:11:18 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static inline int		cpy_stat(char *parent, char *file, t_file *file_st)
 	struct stat			statbuf;
 
 	file_st->pathname = cpy_path(parent, file);
+	file_st->filename = ft_strdup(file);
 	if (lstat(file_st->pathname, &statbuf))
 	{
 		error_put(file_st);
@@ -76,7 +77,6 @@ static inline int		cpy_stat(char *parent, char *file, t_file *file_st)
 	}
 	else
 	{
-		file_st->filename = ft_strdup(file);
 		file_st->st_mode = statbuf.st_mode;
 		file_st->mtime.tv_sec = statbuf.st_mtim.tv_sec;
 		file_st->mtime.tv_nsec = statbuf.st_mtim.tv_nsec;
