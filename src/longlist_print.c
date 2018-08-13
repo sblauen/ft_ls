@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/06 01:49:51 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/11 23:32:42 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/13 21:59:00 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,26 @@ static inline size_t		longlist_id(t_file *file, t_sizes *sp, char *buf)
 	n = sp->gid - gr_len + 2;
 	while (n-- > 0)
 		buf[len++] = ' ';
+	return (len);
+}
+
+static inline size_t	longlist_time(t_file *file, char *buf)
+{
+	size_t				len;
+	time_t				six_m;
+	char				*c_time;
+
+	six_m = time(NULL) - ((time_t)SIXMONTHS);
+	c_time = ctime(&(file->mtime.tv_sec));
+	if (file->mtime.tv_sec < six_m)
+	{
+		len = ft_strlcpy(buf, c_time + 3, 9) - 14;
+		len += ft_strlcpy(buf + len, c_time + 19, 6) - 1;
+	}
+	else
+	{
+		len = ft_strlcpy(buf, c_time + 3, 14) - 9;
+	}
 	return (len);
 }
 
@@ -66,7 +86,7 @@ void					longlist_buf(t_file *file, t_sizes *sp, char *buf)
 	}
 	else
 		len += nbr_align(buf + len, file->st_size, sp->size);
-	len += ft_strlcpy(buf + len, ctime(&(file->mtime.tv_sec)) + 3, 14) - 9;
+	len += longlist_time(file, buf + len);
 	len += ft_strlcpy(buf + len, " ", 2);
 	len += ft_strlcpy(buf + len, file->filename, sp->name + 1);
 	if (S_ISLNK(file->st_mode))
