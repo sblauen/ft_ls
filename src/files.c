@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:51:34 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/13 02:47:36 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/15 17:02:34 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,10 @@ static inline t_list	*parse_file_args(char **av)
 	t_file				arg;
 
 	file_args = NULL;
-	arg.filename = NULL;
 	while (*av)
 	{
 		arg.pathname = *av;
+		arg.filename = NULL;
 		arg.st_blocks = 0;
 		if (get_stat(arg.pathname, &arg))
 			error_put(&arg);
