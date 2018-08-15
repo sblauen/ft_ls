@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/13 22:00:56 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/15 15:40:42 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 #  define MAJOR 8
 # endif
 
+# define OPTIONS "aClRrt1"
 /*
 **  A year has 3600 * 24 * 365.2425 = 31556952 s.
 */
@@ -86,5 +87,6 @@ void					check_options(int ac, char **av, int *n);
 void					check_files(char **av);
 int						cmp_files(void *f1, void *f2);
 void					error_put(t_file *file);
+void					error_options(char argument);
 size_t					nbr_align(char *buf, int n, size_t sp);
 #endif

@@ -6,15 +6,15 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/29 19:38:36 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/02 22:20:48 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/15 15:40:34 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_options						g_options;
+t_options				g_options;
 
-static inline void				default_options(void)
+static inline void		default_options(void)
 {
 	g_options.dotfiles = none;
 	g_options.format = column;
@@ -24,10 +24,12 @@ static inline void				default_options(void)
 	g_options.multi_files = 0;
 }
 
-static inline void				parse_option_args(char *arguments)
+static inline void		parse_option_args(char *arguments)
 {
 	while (*arguments)
 	{
+		if (!ft_strchr(OPTIONS, *arguments))
+			error_options(*arguments);
 		if (*arguments == 'a')
 			g_options.dotfiles = all;
 		if (*arguments == 'l')
@@ -44,7 +46,7 @@ static inline void				parse_option_args(char *arguments)
 	}
 }
 
-void							check_options(int ac, char **av, int *n)
+void					check_options(int ac, char **av, int *n)
 {
 	default_options();
 	while (*(av + *n))
