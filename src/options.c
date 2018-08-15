@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/29 19:38:36 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/15 16:45:49 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/16 20:54:32 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,17 @@ void					check_options(int ac, char **av, int *n)
 	default_options();
 	while (*(av + *n))
 	{
-		if ((**(av + *n) == '-') && (*(*(av + *n) + 1) != '-'))
-			parse_option_args(*(av + *n) + 1);
-		else if ((**(av + *n) == '-') && *(*(av + *n) + 1) == '-')
+		if (**(av + *n) == '-' && *(*(av + *n) + 1))
 		{
-			++(*n);
-			break ;
+			if (*(*(av + *n) + 1) == '-' && !*(*(av + *n) + 2))
+			{
+				++(*n);
+				break ;
+			}
+			else
+			{
+				parse_option_args(*(av + *n) + 1);
+			}
 		}
 		else
 			break ;
