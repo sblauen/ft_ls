@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:51:34 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/17 23:03:27 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/17 23:54:22 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ static inline int		parse_files(t_list **files, t_list *filenames)
 		}
 		filenames = filenames->next;
 	}
+	ft_lstsort_merge(files, &cmp_files);
 	return (ret);
 }
 
