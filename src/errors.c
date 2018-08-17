@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 22:23:14 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/17 21:53:31 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/17 23:12:59 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void					error_options(char argument)
 int						error_args(char *argument)
 {
 	ft_putstr_fd("ft_ls: ", 2);
-	perror(argument);
+	ft_putstr_fd(argument, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(strerror(errno), 2);
 	return (1);
 }
