@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/29 11:59:22 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/12 21:49:58 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/17 22:55:54 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 int					main(int ac, char **av)
 {
 	int			n;
+	int			ret;
 
-	errno = 0;
 	n = 1;
+	ret = 0;
+	errno = 0;
 	check_options(ac, av, &n);
-	check_files(av + n);
-	return (0);
+	ret = check_files(av + n);
+	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:51:34 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/17 22:48:55 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/17 23:03:27 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,29 +111,30 @@ static inline int		parse_files(t_list **files, t_list *filenames)
 	return (ret);
 }
 
-void					check_files(char **av)
+int						check_files(char **av)
 {
+	int					ret;
 	t_file				dot;
 	t_list				*names;
 	t_list				*files;
 
+	ret = 0;
 	names = NULL;
 	files = NULL;
 	if (*av && (names = get_filenames(av)))
 	{
-		parse_files(&files, names);
+		ret = parse_files(&files, names);
 		ft_lstdel(&names, &del_nodes);
 		if (files)
 		{
 			iter_files(files);
 			ft_lstdel(&files, &del_args_node);
 		}
+		return (ret);
 	}
-	else
-	{
-		dot.pathname = ft_strdup(".");
-		dot.filename = dot.pathname;
-		list_content(&dot);
-		free(dot.pathname);
-	}
+	dot.pathname = ft_strdup(".");
+	dot.filename = dot.pathname;
+	list_content(&dot);
+	free(dot.pathname);
+	return (ret);
 }
