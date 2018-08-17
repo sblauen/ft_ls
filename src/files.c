@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:51:34 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/15 17:02:34 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/17 22:26:22 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,44 +94,65 @@ static inline int		get_stat(char *path, t_file *arg)
 	return (0);
 }
 
-static inline t_list	*parse_file_args(char **av)
+static inline t_list	*get_filenames(char **av)
 {
-	t_list				*file_args;
-	t_file				arg;
+	t_list				*filenames;
+	t_list				*node;
 
-	file_args = NULL;
+	filenames = NULL;
 	while (*av)
 	{
-		arg.pathname = *av;
-		arg.filename = NULL;
-		arg.st_blocks = 0;
-		if (get_stat(arg.pathname, &arg))
-			error_put(&arg);
+		node = ft_lstnew(*av, sizeof(char *));
+		if (!filenames)
+			filenames = node;
 		else
-		{
-			arg.pathname = ft_strdup(*av);
-			arg.filename = arg.pathname;
-			add_new_node(&file_args, &arg);
-		}
+			ft_lstadd_bck(&filenames, node);
 		++av;
 	}
-	return (file_args);
+	ft_lstsort_merge(&filenames, &cmp_args);
+	return (filenames);
+}
+
+static inline int		parse_files(t_list **files, t_list *filenames)
+{
+	int					ret;
+	t_file				file;
+
+	ret = 0;
+	while (filenames)
+	{
+		if (get_stat((char *)(filenames->content), &file))
+		{
+			ret = error_args((char *)(filenames->content));
+		}
+		else
+		{
+			file.pathname = ft_strdup((char *)(filenames->content));
+			file.filename = file.pathname;
+			file.st_blocks = 0;
+			add_new_node(files, &file);
+		}
+		filenames = filenames->next;
+	}
+	return (ret);
 }
 
 void					check_files(char **av)
 {
-	t_list				*args;
 	t_file				dot;
+	t_list				*names;
+	t_list				*files;
 
-	args = NULL;
-	if (*av)
+	names = NULL;
+	files = NULL;
+	if (*av && (names = get_filenames(av)))
 	{
-		args = parse_file_args(av);
-		if (args)
+		parse_files(&files, names);
+		ft_lstdel(&names, &del_nodes);
+		if (files)
 		{
-			ft_lstsort_merge(&args, &cmp_files);
-			iter_file_args(args);
-			ft_lstdel(&args, &del_args_node);
+			iter_file_args(files);
+			ft_lstdel(&files, &del_args_node);
 		}
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/15 15:40:42 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/17 22:03:49 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,9 @@ void					del_nodes(void *content, size_t size);
 void					check_options(int ac, char **av, int *n);
 void					check_files(char **av);
 int						cmp_files(void *f1, void *f2);
+int						cmp_args(void *s1, void *s2);
 void					error_put(t_file *file);
+int						error_args(char *argument);
 void					error_options(char argument);
 size_t					nbr_align(char *buf, int n, size_t sp);
 #endif

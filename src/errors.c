@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 22:23:14 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/15 15:59:39 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/17 21:53:31 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,11 @@ void					error_options(char argument)
 	ft_putstr_fd(OPTIONS, 2);
 	ft_putendl_fd("] [file ...]", 2);
 	exit(EXIT_FAILURE);
+}
+
+int						error_args(char *argument)
+{
+	ft_putstr_fd("ft_ls: ", 2);
+	perror(argument);
+	return (1);
 }
