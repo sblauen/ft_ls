@@ -6,44 +6,18 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:51:34 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/17 22:26:22 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/17 22:48:55 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static inline void		print_files(t_list *files)
-{
-	char				*buf;
-	t_sizes				sizes;
-
-	buf = NULL;
-	if (g_options.format == long_listing)
-	{
-		longlist_sizes(files, &sizes);
-		if (!(buf = ft_strnew(sizes.len)))
-			return ;
-		while (files)
-		{
-			longlist_buf(((t_file *)(files->content)), &sizes, buf);
-			ft_putendl(buf);
-			files = files->next;
-		}
-		ft_memdel((void **)&buf);
-	}
-	while (files)
-	{
-		ft_putendl(((t_file *)(files->content))->pathname);
-		files = files->next;
-	}
-}
-
-static inline void		iter_file_args(t_list *file_args)
+static inline void		iter_files(t_list *args)
 {
 	t_list				*tmp;
 	t_list				*files;
 
-	tmp = file_args;
+	tmp = args;
 	files = NULL;
 	while (tmp)
 	{
@@ -54,11 +28,11 @@ static inline void		iter_file_args(t_list *file_args)
 	if (files)
 	{
 		print_files(files);
-		if (ft_lstsize(file_args) > ft_lstsize(files))
+		if (ft_lstsize(args) > ft_lstsize(files))
 			ft_putchar('\n');
 		ft_lstdel(&files, &del_nodes);
 	}
-	tmp = file_args;
+	tmp = args;
 	while (tmp)
 	{
 		if (S_ISDIR(((t_file *)(tmp->content))->st_mode))
@@ -74,9 +48,9 @@ static inline int		get_stat(char *path, t_file *arg)
 	struct group		*gr;
 
 	if ((g_options.format == long_listing) && lstat(path, &statbuf))
-		return (-1);
+		return (1);
 	else if ((g_options.format != long_listing) && stat(path, &statbuf))
-		return (-1);
+		return (1);
 	arg->st_mode = statbuf.st_mode;
 	arg->mtime.tv_sec = statbuf.st_mtim.tv_sec;
 	arg->mtime.tv_nsec = statbuf.st_mtim.tv_nsec;
@@ -151,7 +125,7 @@ void					check_files(char **av)
 		ft_lstdel(&names, &del_nodes);
 		if (files)
 		{
-			iter_file_args(files);
+			iter_files(files);
 			ft_lstdel(&files, &del_args_node);
 		}
 	}

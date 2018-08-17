@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 18:58:21 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/12 02:35:24 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/17 22:40:12 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,30 @@ void					print_dir(t_list *dir_files)
 			ft_putendl(((t_file *)(tmp->content))->filename);
 			tmp = tmp->next;
 		}
+}
+
+void					print_files(t_list *files)
+{
+	char				*buf;
+	t_sizes				sizes;
+
+	buf = NULL;
+	if (g_options.format == long_listing)
+	{
+		longlist_sizes(files, &sizes);
+		if (!(buf = ft_strnew(sizes.len)))
+			return ;
+		while (files)
+		{
+			longlist_buf(((t_file *)(files->content)), &sizes, buf);
+			ft_putendl(buf);
+			files = files->next;
+		}
+		ft_memdel((void **)&buf);
+	}
+	while (files)
+	{
+		ft_putendl(((t_file *)(files->content))->pathname);
+		files = files->next;
+	}
 }
