@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:51:34 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/17 23:54:22 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/18 14:55:52 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ static inline t_list	*get_filenames(char **av)
 	filenames = NULL;
 	while (*av)
 	{
-		node = ft_lstnew(*av, sizeof(char *));
+		node = ft_lstnew(NULL, 0);
+		node->content = *av;
 		if (!filenames)
 			filenames = node;
 		else
@@ -125,7 +126,7 @@ int						check_files(char **av)
 	if (*av && (names = get_filenames(av)))
 	{
 		ret = parse_files(&files, names);
-		ft_lstdel(&names, &del_nodes);
+		ft_lstdel(&names, &set_null);
 		if (files)
 		{
 			iter_files(files);

@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/28 15:34:42 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/13 01:52:45 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/18 14:55:21 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,10 @@ void					del_nodes(void *content, size_t size)
 {
 	(void)size;
 	ft_memdel(&content);
+}
+
+void					set_null(void *content, size_t size)
+{
+	(void)size;
+	content = NULL;
 }
