@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/18 14:55:35 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/18 19:10:19 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@
 # endif
 
 # define OPTIONS "aClRrt1"
+
 /*
 **  A year has 3600 * 24 * 365.2425 = 31556952 s.
 */
 
-#define SIXMONTHS 31556952 >> 1
+# define SIXMONTHS 31556952 >> 1
 
 extern t_options		g_options;
 
