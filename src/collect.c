@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/13 04:11:18 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/18 22:21:08 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,16 @@ static inline int		cpy_stat(char *parent, char *file, t_file *file_st)
 	file_st->filename = ft_strdup(file);
 	if (lstat(file_st->pathname, &statbuf))
 	{
-		error_put(file_st);
-		return (-1);
+		return (error_file(file_st));
 	}
-	else
+	file_st->st_mode = statbuf.st_mode;
+	file_st->mtime.tv_sec = statbuf.st_mtim.tv_sec;
+	file_st->mtime.tv_nsec = statbuf.st_mtim.tv_nsec;
+	if (g_options.format == long_listing)
 	{
-		file_st->st_mode = statbuf.st_mode;
-		file_st->mtime.tv_sec = statbuf.st_mtim.tv_sec;
-		file_st->mtime.tv_nsec = statbuf.st_mtim.tv_nsec;
-		if (g_options.format == long_listing)
-			longlist_stat(file_st, &statbuf);
-		return (0);
+		longlist_stat(file_st, &statbuf);
 	}
+	return (0);
 }
 
 /*
@@ -93,29 +91,27 @@ static inline int		cpy_stat(char *parent, char *file, t_file *file_st)
 
 int						get_content(t_file *dir, t_list **content)
 {
+	int					ret;
 	t_file				file_st;
-	struct dirent		*dir_entry;
+	struct dirent		*dirent;
 	DIR					*dir_stream;
 
+	ret = 0;
 	*content = NULL;
 	if (!(dir_stream = opendir(dir->pathname)))
 	{
-		error_put(dir);
-		return (-1);
+		return (error_file(dir));
 	}
-	else
+	while ((dirent = readdir(dir_stream)))
 	{
-		while ((dir_entry = readdir(dir_stream)))
-		{
-			if (((g_options.dotfiles == none) && (*(dir_entry->d_name) != '.'))
-					|| (g_options.dotfiles == all))
-			{
-				if (!cpy_stat(dir->pathname, dir_entry->d_name, &file_st))
-					add_new_node(content, &file_st);
-			}
-		}
-		if (closedir(dir_stream) == -1)
-			error_put(dir);
+		if (((g_options.dotfiles == none) && (*(dirent->d_name) != '.'))
+				|| (g_options.dotfiles == all))
+			if (!(ret = cpy_stat(dir->pathname, dirent->d_name, &file_st)))
+				add_new_node(content, &file_st);
 	}
-	return (0);
+	if (closedir(dir_stream) == -1)
+	{
+		ret = error_file(dir);
+	}
+	return (ret);
 }
