@@ -6,13 +6,13 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:51:34 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/18 20:20:36 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/19 00:00:22 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static inline void		iter_files(t_list *args)
+static inline void		iter_files(t_list *args, int *ret)
 {
 	t_list				*tmp;
 	t_list				*files;
@@ -32,12 +32,12 @@ static inline void		iter_files(t_list *args)
 			ft_putchar('\n');
 		ft_lstdel(&files, &del_nodes);
 	}
-	tmp = args;
-	while (tmp)
+	while (args)
 	{
-		if (S_ISDIR(((t_file *)(tmp->content))->st_mode))
-			list_content(((t_file *)(tmp->content)));
-		tmp = tmp->next;
+		if (S_ISDIR(((t_file *)(args->content))->st_mode))
+			if (list_content(((t_file *)(args->content))))
+				*ret = 1;
+		args = args->next;
 	}
 }
 
@@ -116,12 +116,10 @@ static inline int		parse_files(t_list **files, t_list *filenames)
 
 int						check_files(char **av)
 {
-	int					ret;
-	t_file				dot;
 	t_list				*names;
 	t_list				*files;
+	static int			ret = 0;
 
-	ret = 0;
 	names = NULL;
 	files = NULL;
 	if (*av && (names = get_filenames(av)))
@@ -130,14 +128,9 @@ int						check_files(char **av)
 		ft_lstdel(&names, &set_null);
 		if (files)
 		{
-			iter_files(files);
+			iter_files(files, &ret);
 			ft_lstdel(&files, &del_args_node);
 		}
-		return (ret);
 	}
-	dot.pathname = ft_strdup(".");
-	dot.filename = dot.pathname;
-	list_content(&dot);
-	free(dot.pathname);
 	return (ret);
 }
