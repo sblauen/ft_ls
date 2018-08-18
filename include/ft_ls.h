@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/18 22:18:45 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/18 22:29:31 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef struct			s_file
 	mode_t				st_mode;
 }						t_file;
 
-void					list_content(t_file *dir);
+int						list_content(t_file *dir);
 int						get_content(t_file *dir, t_list **content);
 void					print_files(t_list *files);
 void					print_dir(t_list *dir_files);
