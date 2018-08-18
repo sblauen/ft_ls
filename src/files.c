@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:51:34 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/18 14:55:52 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/18 20:20:36 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static inline int		get_stat(char *path, t_file *arg)
 	if ((g_options.format == long_listing) && lstat(path, &statbuf))
 		return (1);
 	else if ((g_options.format != long_listing) && stat(path, &statbuf))
-		return (1);
+		if (lstat(path, &statbuf))
+			return (1);
 	arg->st_mode = statbuf.st_mode;
 	arg->mtime.tv_sec = statbuf.st_mtim.tv_sec;
 	arg->mtime.tv_nsec = statbuf.st_mtim.tv_nsec;
