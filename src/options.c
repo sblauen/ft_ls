@@ -31,7 +31,7 @@ static inline void		parse_option_args(char *arguments)
 	{
 		if (!ft_strchr(OPTIONS, *arguments))
 			error_options(*arguments);
-		if (*arguments == 'a')
+		if (*arguments == 'a' || *arguments == 'f')
 			g_options.dotfiles = all;
 		if (*arguments == 'l')
 			g_options.format = long_listing;
@@ -43,6 +43,8 @@ static inline void		parse_option_args(char *arguments)
 			g_options.reverse = 1;
 		if (*arguments == 't')
 			g_options.sort = by_time;
+		if (*arguments == 'f')
+			g_options.sort = unsorted;
 		if (*arguments == 'c')
 			g_options.time = change_time;
 		if (*arguments == 'u')

@@ -110,7 +110,8 @@ static inline int		parse_files(t_list **files, t_list *filenames)
 		}
 		filenames = filenames->next;
 	}
-	ft_lstsort_merge(files, &cmp_files);
+	if (g_options.sort != unsorted)
+		ft_lstsort_merge(files, &cmp_files);
 	return (ret);
 }
 

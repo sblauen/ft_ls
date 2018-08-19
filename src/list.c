@@ -58,7 +58,8 @@ int						list_content(t_file *dir)
 		list_dirname(dir->pathname);
 	if (!(ret = get_content(dir, &content)) && content)
 	{
-		ft_lstsort_merge(&content, &cmp_files);
+		if (g_options.sort != unsorted)
+			ft_lstsort_merge(&content, &cmp_files);
 		print_dir(content);
 	}
 	n = 0;
