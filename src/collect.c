@@ -57,6 +57,20 @@ static inline void		longlist_stat(t_file *file_st, struct stat *statbuf)
 	file_st->st_rdev = statbuf->st_rdev;
 }
 
+static inline void		cpy_time(t_file *file_st, struct stat *statbuf)
+{
+	if (g_options.time == change_time)
+	{
+		file_st->time.tv_sec = statbuf->st_ctim.tv_sec;
+		file_st->time.tv_nsec = statbuf->st_ctim.tv_nsec;
+	}
+	else
+	{
+		file_st->time.tv_sec = statbuf->st_mtim.tv_sec;
+		file_st->time.tv_nsec = statbuf->st_mtim.tv_nsec;
+	}
+}
+
 /*
 **  Backup informations about the file 'file' in the buffer pointed to
 **  by 'file_st'.
@@ -75,8 +89,7 @@ static inline int		cpy_stat(char *parent, char *file, t_file *file_st)
 		return (error_file(file_st));
 	}
 	file_st->st_mode = statbuf.st_mode;
-	file_st->time.tv_sec = statbuf.st_mtim.tv_sec;
-	file_st->time.tv_nsec = statbuf.st_mtim.tv_nsec;
+	cpy_time(file_st, &statbuf);
 	if (g_options.format == long_listing)
 	{
 		longlist_stat(file_st, &statbuf);

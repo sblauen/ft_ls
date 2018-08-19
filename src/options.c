@@ -21,6 +21,7 @@ static inline void		default_options(void)
 	g_options.recursive = 0;
 	g_options.reverse = 0;
 	g_options.sort = name;
+	g_options.time = modif_time;
 	g_options.multi_files = 0;
 }
 
@@ -41,7 +42,9 @@ static inline void		parse_option_args(char *arguments)
 		if (*arguments == 'r')
 			g_options.reverse = 1;
 		if (*arguments == 't')
-			g_options.sort = mtime;
+			g_options.sort = by_time;
+		if (*arguments == 'c')
+			g_options.time = change_time;
 		++arguments;
 	}
 }

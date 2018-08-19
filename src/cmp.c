@@ -29,7 +29,7 @@ int						cmp_files(void *f1, void *f2)
 	cmp = 0;
 	if (g_options.reverse)
 		ft_swapptr(&f1, &f2);
-	if (g_options.sort == mtime)
+	if (g_options.sort == by_time)
 		cmp = cmp_files_time(&((t_file *)f1)->time, &((t_file *)f2)->time);
 	if (!cmp)
 		cmp = ft_strcmp(((t_file *)f1)->filename, ((t_file *)f2)->filename);

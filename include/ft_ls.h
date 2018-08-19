@@ -32,7 +32,7 @@
 #  define MAJOR 8
 # endif
 
-# define OPTIONS "aClRrt1"
+# define OPTIONS "aCclRrt1"
 
 /*
 **  A year has 3600 * 24 * 365.2425 = 31556952 s.

@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/29 20:12:45 by sblauens          #+#    #+#             */
-/*   Updated: 2018/07/30 06:37:41 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/13 23:49:39 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,14 @@ typedef enum			e_sort_options
 {
 	unsorted,
 	name,
-	mtime
+	by_time
 }						t_sort_options;
+
+typedef enum			e_time_options
+{
+	modif_time,
+	change_time
+}						t_time_options;
 
 typedef struct			s_options
 {
@@ -42,5 +48,6 @@ typedef struct			s_options
 	unsigned int		recursive;
 	unsigned int		reverse;
 	t_sort_options		sort;
+	t_time_options		time;
 }						t_options;
 #endif
