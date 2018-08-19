@@ -43,6 +43,8 @@ static inline void		parse_option_args(char *arguments)
 			g_options.reverse = 1;
 		if (*arguments == 't')
 			g_options.sort = by_time;
+		if (*arguments == 'S')
+			g_options.sort = by_size;
 		if (*arguments == 'f')
 			g_options.sort = unsorted;
 		if (*arguments == 'c')

@@ -53,7 +53,6 @@ static inline void		longlist_stat(t_file *file_st, struct stat *statbuf)
 		file_st->gr_name = ft_strdup(gr->gr_name);
 	else
 		file_st->gr_name = ft_itoa(statbuf->st_gid);
-	file_st->st_size = statbuf->st_size;
 	file_st->st_rdev = statbuf->st_rdev;
 }
 
@@ -97,6 +96,7 @@ static inline int		cpy_stat(char *parent, char *file, t_file *file_st)
 		return (error_file(file_st));
 	}
 	file_st->st_mode = statbuf.st_mode;
+	file_st->st_size = statbuf.st_size;
 	cpy_time(file_st, &statbuf);
 	if (g_options.format == long_listing)
 	{

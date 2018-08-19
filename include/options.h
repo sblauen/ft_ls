@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/29 20:12:45 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/13 23:59:59 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/14 00:21:43 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ typedef enum			e_sort_options
 {
 	unsorted,
 	name,
-	by_time
+	by_time,
+	by_size
 }						t_sort_options;
 
 typedef enum			e_time_options
