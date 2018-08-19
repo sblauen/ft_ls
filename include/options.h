@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/29 20:12:45 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/13 23:49:39 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/13 23:59:59 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ typedef enum			e_sort_options
 typedef enum			e_time_options
 {
 	modif_time,
-	change_time
+	change_time,
+	access_time
 }						t_time_options;
 
 typedef struct			s_options

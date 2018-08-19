@@ -59,10 +59,18 @@ static inline void		longlist_stat(t_file *file_st, struct stat *statbuf)
 
 static inline void		cpy_time(t_file *file_st, struct stat *statbuf)
 {
-	if (g_options.time == change_time)
+	if (g_options.time != modif_time)
 	{
-		file_st->time.tv_sec = statbuf->st_ctim.tv_sec;
-		file_st->time.tv_nsec = statbuf->st_ctim.tv_nsec;
+		if (g_options.time == access_time)
+		{
+			file_st->time.tv_sec = statbuf->st_atim.tv_sec;
+			file_st->time.tv_nsec = statbuf->st_atim.tv_nsec;
+		}
+		else if (g_options.time == change_time)
+		{
+			file_st->time.tv_sec = statbuf->st_ctim.tv_sec;
+			file_st->time.tv_nsec = statbuf->st_ctim.tv_nsec;
+		}
 	}
 	else
 	{

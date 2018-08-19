@@ -45,6 +45,8 @@ static inline void		parse_option_args(char *arguments)
 			g_options.sort = by_time;
 		if (*arguments == 'c')
 			g_options.time = change_time;
+		if (*arguments == 'u')
+			g_options.time = access_time;
 		++arguments;
 	}
 }
