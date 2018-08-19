@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/29 19:38:36 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/16 20:54:32 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/08/19 07:40:44 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ static inline void		parse_option_args(char *arguments)
 			g_options.recursive = 1;
 		if (*arguments == 'r')
 			g_options.reverse = 1;
-		if (*arguments == 't')
+		if (*arguments == 't' && g_options.sort < by_time)
 			g_options.sort = by_time;
-		if (*arguments == 'S')
+		if (*arguments == 'S' && g_options.sort < by_size)
 			g_options.sort = by_size;
 		if (*arguments == 'f')
 			g_options.sort = unsorted;

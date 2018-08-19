@@ -29,10 +29,10 @@ typedef enum			e_format_options
 
 typedef enum			e_sort_options
 {
-	unsorted,
 	name,
 	by_time,
-	by_size
+	by_size,
+	unsorted
 }						t_sort_options;
 
 typedef enum			e_time_options
