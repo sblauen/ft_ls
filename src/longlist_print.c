@@ -40,8 +40,8 @@ static inline size_t	longlist_time(t_file *file, char *buf)
 	time_t				time_dif;
 	char				*c_time;
 
-	c_time = ctime(&(file->mtime.tv_sec));
-	time_dif = time(NULL) - file->mtime.tv_sec;
+	c_time = ctime(&(file->time.tv_sec));
+	time_dif = time(NULL) - file->time.tv_sec;
 	if (time_dif > SIXMONTHS || time_dif < 0)
 	{
 		ft_strncpy(buf, c_time + 3, 8);

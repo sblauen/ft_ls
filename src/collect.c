@@ -75,8 +75,8 @@ static inline int		cpy_stat(char *parent, char *file, t_file *file_st)
 		return (error_file(file_st));
 	}
 	file_st->st_mode = statbuf.st_mode;
-	file_st->mtime.tv_sec = statbuf.st_mtim.tv_sec;
-	file_st->mtime.tv_nsec = statbuf.st_mtim.tv_nsec;
+	file_st->time.tv_sec = statbuf.st_mtim.tv_sec;
+	file_st->time.tv_nsec = statbuf.st_mtim.tv_nsec;
 	if (g_options.format == long_listing)
 	{
 		longlist_stat(file_st, &statbuf);

@@ -62,7 +62,7 @@ typedef struct			s_sizes
 
 typedef struct			s_file
 {
-	t_timespec			mtime;
+	t_timespec			time;
 	char				*filename;
 	char				*pathname;
 	char				*pw_name;

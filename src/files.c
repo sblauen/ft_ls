@@ -53,8 +53,8 @@ static inline int		get_stat(char *path, t_file *arg)
 		if (lstat(path, &statbuf))
 			return (1);
 	arg->st_mode = statbuf.st_mode;
-	arg->mtime.tv_sec = statbuf.st_mtim.tv_sec;
-	arg->mtime.tv_nsec = statbuf.st_mtim.tv_nsec;
+	arg->time.tv_sec = statbuf.st_mtim.tv_sec;
+	arg->time.tv_nsec = statbuf.st_mtim.tv_nsec;
 	arg->st_nlink = statbuf.st_nlink;
 	arg->st_size = statbuf.st_size;
 	arg->st_rdev = statbuf.st_rdev;
