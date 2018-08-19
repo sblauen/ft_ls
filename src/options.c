@@ -6,7 +6,8 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/29 19:38:36 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/19 07:40:44 by sblauens         ###   ########.fr       */
+
+/*   Updated: 2018/08/19 09:18:27 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +36,8 @@ static inline void		parse_option_args(char *arguments)
 			g_options.dotfiles = all;
 		if (*arguments == 'l')
 			g_options.format = long_listing;
-		else if (*arguments == 'C')
-			g_options.format = column;
+		if (*arguments == '1')
+			g_options.format = one_per_line;
 		if (*arguments == 'R')
 			g_options.recursive = 1;
 		if (*arguments == 'r')
