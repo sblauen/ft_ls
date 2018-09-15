@@ -6,13 +6,13 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/06 01:49:51 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/18 19:46:20 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/09/15 17:10:08 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static inline size_t		longlist_id(t_file *file, t_sizes *sp, char *buf)
+static inline size_t	longlist_id(t_file *file, t_sizes *sp, char *buf)
 {
 	size_t				pw_len;
 	size_t				gr_len;

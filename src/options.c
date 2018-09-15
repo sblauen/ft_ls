@@ -6,8 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/29 19:38:36 by sblauens          #+#    #+#             */
-
-/*   Updated: 2018/08/19 09:18:27 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/09/15 17:15:43 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +49,8 @@ static inline void		parse_option_args(char *arguments)
 			g_options.sort = unsorted;
 		if (*arguments == 'c')
 			g_options.time = change_time;
-		if (*arguments == 'u')
+		if (*arguments++ == 'u')
 			g_options.time = access_time;
-		++arguments;
 	}
 }
 

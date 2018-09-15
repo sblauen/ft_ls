@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/18 23:20:02 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/09/15 17:09:21 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int						list_content(t_file *dir)
 	ret = 0;
 	if (!n)
 		ft_putchar('\n');
-	if  (g_options.multi_files || (g_options.recursive && !n))
+	if (g_options.multi_files || (g_options.recursive && !n))
 		list_dirname(dir->pathname);
 	if (!(ret = get_content(dir, &content)) && content)
 	{

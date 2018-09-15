@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 16:17:54 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/11 23:18:58 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/09/15 17:12:26 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static inline void		init_sizes(t_sizes *sizes)
 {
-		sizes->nlink = 0;
-		sizes->name = 0;
-		sizes->uid = 0;
-		sizes->gid = 0;
-		sizes->mjr = 0;
-		sizes->size = 0;
-		sizes->blocks = 0;
+	sizes->nlink = 0;
+	sizes->name = 0;
+	sizes->uid = 0;
+	sizes->gid = 0;
+	sizes->mjr = 0;
+	sizes->size = 0;
+	sizes->blocks = 0;
 }
 
 static inline void		spe_sizes(dev_t st_rdev, t_sizes *sizes, t_sizes *ret)

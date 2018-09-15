@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/09/15 16:53:17 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/09/15 17:08:45 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static inline char		*cpy_path(char *parent, char *file)
 /*
 **  Backup informations needed in long listing output.
 */
+
 static inline void		longlist_stat(t_file *file_st, struct stat *statbuf)
 {
 	struct passwd		*pw;
