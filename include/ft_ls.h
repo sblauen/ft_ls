@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 14:52:11 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/18 22:29:31 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/09/15 17:01:41 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,7 @@
 # include <time.h>
 # include <errno.h>
 
-# ifdef __APPLE__
-#  define MAJOR 24
-# else
-#  define MAJOR 8
-# endif
+# define MAJOR 24
 
 # define OPTIONS "acflRrStu1"
 
