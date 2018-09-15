@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 15:09:13 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/18 22:21:08 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/09/15 16:53:17 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,19 @@ static inline void		cpy_time(t_file *file_st, struct stat *statbuf)
 	{
 		if (g_options.time == access_time)
 		{
-			file_st->time.tv_sec = statbuf->st_atim.tv_sec;
-			file_st->time.tv_nsec = statbuf->st_atim.tv_nsec;
+			file_st->time.tv_sec = statbuf->st_atimespec.tv_sec;
+			file_st->time.tv_nsec = statbuf->st_atimespec.tv_nsec;
 		}
 		else if (g_options.time == change_time)
 		{
-			file_st->time.tv_sec = statbuf->st_ctim.tv_sec;
-			file_st->time.tv_nsec = statbuf->st_ctim.tv_nsec;
+			file_st->time.tv_sec = statbuf->st_ctimespec.tv_sec;
+			file_st->time.tv_nsec = statbuf->st_ctimespec.tv_nsec;
 		}
 	}
 	else
 	{
-		file_st->time.tv_sec = statbuf->st_mtim.tv_sec;
-		file_st->time.tv_nsec = statbuf->st_mtim.tv_nsec;
+		file_st->time.tv_sec = statbuf->st_mtimespec.tv_sec;
+		file_st->time.tv_nsec = statbuf->st_mtimespec.tv_nsec;
 	}
 }
 

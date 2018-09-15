@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:51:34 by sblauens          #+#    #+#             */
-/*   Updated: 2018/08/19 00:00:22 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/09/15 16:52:04 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ static inline int		get_stat(char *path, t_file *arg)
 		if (lstat(path, &statbuf))
 			return (1);
 	arg->st_mode = statbuf.st_mode;
-	arg->time.tv_sec = statbuf.st_mtim.tv_sec;
-	arg->time.tv_nsec = statbuf.st_mtim.tv_nsec;
+	arg->time.tv_sec = statbuf.st_mtimespec.tv_sec;
+	arg->time.tv_nsec = statbuf.st_mtimespec.tv_nsec;
 	arg->st_nlink = statbuf.st_nlink;
 	arg->st_size = statbuf.st_size;
 	arg->st_rdev = statbuf.st_rdev;
